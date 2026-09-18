@@ -298,6 +298,7 @@ a {
   width: min(900px, 100%);
 
   margin: auto;
+  padding-top: 80px;
 }
 
 .eyebrow {
@@ -1100,6 +1101,16 @@ footer {
 
 @media (max-width: 600px) {
 
+  .hero-inner {
+  width: min(900px, 100%);
+
+  margin: auto;
+  padding-top: 20px;
+}
+
+.hero-font{
+  font-size: 10px;
+}
   .nav-container {
     width: calc(100% - 30px);
   }
@@ -1179,7 +1190,7 @@ footer {
 }
 
 .appleimg{
-    height: 150px;
+    height: 130px;
     
 }
 
