@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Official Support</title>
+
+  <!-- Browser tab icon -->
+  <link rel="icon" type="image/png" href="title.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- =========================
+       NAVBAR
+  ========================== -->
+
+  <header class="navbar">
+
+    <div class="nav-container">
+
+      <a href="index.html" class="brand">
+        <img src="logo-1.png" height="22px" width="18px" alt="">
+      </a>
+
+      <nav class="desktop-nav">
+        <a href="#">Products</a>
+        <a href="#">Solutions</a>
+        <a href="#">Resources</a>
+        <a href="#">Community</a>
+        <a href="support.html">Support</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="icon-button" id="searchButton" aria-label="Search">
+          <svg viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="6.5"></circle>
+            <path d="M16 16L21 21"></path>
+          </svg>
+        </button>
+
+        <button class="menu-button" id="menuButton">
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- =========================
+       MOBILE MENU
+  ========================== -->
+
+  <div class="mobile-menu" id="mobileMenu">
+
+    <a href="#">Products</a>
+    <a href="#">Solutions</a>
+    <a href="#">Resources</a>
+    <a href="#">Community</a>
+    <a href="support.html">Support</a>
+
+  </div>
+
+
+  <!-- =========================
+       SEARCH OVERLAY
+  ========================== -->
+
+  <div class="search-overlay" id="searchOverlay">
+
+    <div class="search-box">
+
+      <button class="close-search" id="closeSearch">
+        ×
+      </button>
+
+      <h2>What can we help you with?</h2>
+
+      <div class="large-search">
+
+        <svg viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="6.5"></circle>
+          <path d="M16 16L21 21"></path>
+        </svg>
+
+        <input id="searchInput" type="text" placeholder="Search support topics">
+
+      </div>
+
+      <div class="search-results" id="searchResults"></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       HERO
+  ========================== -->
+
+  <main>
+
+    <section class="hero">
+
+      <div class="hero-inner">
+        <div class="hero-img"><img class="appleimg" src="./blue-01.png " alt="logo">
+        </div>
+
+
+        <h1 class="hero-font">
+          Apple Support
+        </h1>
+
+        <p class="hero-description">
+          Need help? Start here.
+        </p>
+
+        <div class="buttonstyle">
+          <!-- ========================= PRODUCT CARDS========================== -->
+
+
+          <div class="product-grid">
+
+            <!-- PHONE -->
+            <a href="phone.html" class="product-card">
+
+              <div class="product-icon phone">
+                <img src="iphone.png" width="60" height="100" alt="Phone">
+              </div>
+
+              <h3>Phone</h3>
+
+              <p>
+                Learn about features, settings and everyday use.
+              </p>
+
+              <span class="product-link">
+                Explore Phone <span>→</span>
+              </span>
+
+            </a>
+
+
+            <!-- MACBOOK / LAPTOP -->
+            <a href="laptop.html" class="product-card">
+
+              <div class="product-icon laptop">
+                <img src="macbook.png" width="180" height="100" alt="MacBook">
+              </div>
+
+              <h3>MacBook</h3>
+
+              <p>
+                Setup, software, performance and troubleshooting.
+              </p>
+
+              <span class="product-link">
+                Explore MacBook <span>→</span>
+              </span>
+
+            </a>
+
+
+            <!-- IPAD / TABLET -->
+            <a href="tablet.html" class="product-card">
+
+              <div class="product-icon tablet">
+
+                <img src="ipad.png" width="140" height="100" alt="iPad">
+
+              </div>
+
+              <h3>iPad</h3>
+
+              <p>
+                Guides for productivity, apps and personalization.
+              </p>
+
+              <span class="product-link">
+                Explore iPad <span>→</span>
+              </span>
+
+            </a>
+
+          </div>
+
+
+        </div>
+
+        <div class="hero-search">
+
+          <svg viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="6.5"></circle>
+            <path d="M16 16L21 21"></path>
+          </svg>
+
+          <input type="text" id="heroSearch" placeholder="Search support">
+
+          <button id="heroSearchButton">
+            Search
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+    <!-- =========================
+         QUICK HELP
+    ========================== -->
+
+    <section class="quick-help section">
+
+      <div class="quick-container">
+
+        <div class="quick-text">
+
+          <p class="eyebrow">QUICK HELP</p>
+
+          <h2>
+            Common things you may want to do.
+          </h2>
+
+          <p>
+            Find quick answers to the questions people ask most often.
+          </p>
+
+        </div>
+
+
+        <div class="quick-links">
+
+          <a href="#">
+            <span>Reset your account password</span>
+            <b>→</b>
+          </a>
+
+          <a href="#">
+            <span>Manage your subscription</span>
+            <b>→</b>
+          </a>
+
+          <a href="#">
+            <span>Update your device</span>
+            <b>→</b>
+          </a>
+
+          <a href="#">
+            <span>Contact support</span>
+            <b>→</b>
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         FEATURE SECTION
+    ========================== -->
+
+    <section class="feature section">
+
+      <div class="feature-card">
+
+        <div class="feature-content">
+
+          <p class="eyebrow">Apple Care</p>
+
+          <h2>
+            Support that stays with you.
+          </h2>
+
+          <p style="color: #fff;">
+            Get personalized assistance, repair guidance and
+            expert help whenever you need it.
+          </p>
+
+          <a href="#" class="dark-button">
+            Learn more
+          </a>
+
+        </div>
+
+
+        <div class="feature-visual">
+
+          <img style="width: 100%;
+
+  height: 550px;
+  object-fit: cover;
+  background-repeat:no-repeat;
+  " src="bg.png" alt="">
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         SERVICE CARDS
+    ========================== -->
+
+    <section class="services section">
+
+      <div class="section-heading">
+
+        <p class="eyebrow">SERVICES</p>
+
+        <h2>
+          We're here when you need us.
+        </h2>
+
+      </div>
+
+
+      <div class="service-grid">
+
+        <article class="service-card">
+
+          <div class="service-number">01</div>
+
+          <h3>Repair & Service</h3>
+
+          <p>
+            Get information about repairs, service options
+            and replacement parts.
+          </p>
+
+          <a href="#">Get started →</a>
+
+        </article>
+
+
+        <article class="service-card">
+
+          <div class="service-number">02</div>
+
+          <h3>Account Support</h3>
+
+          <p>
+            Manage your account and find help with security,
+            payments and subscriptions.
+          </p>
+
+          <a href="#">Get started →</a>
+
+        </article>
+
+
+        <article class="service-card">
+
+          <div class="service-number">03</div>
+
+          <h3>Talk to an Expert</h3>
+
+          <p>
+            Connect with our support team for personalized help.
+          </p>
+
+          <a href="#">Contact us →</a>
+
+        </article>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+
+    <div class="footer-container">
+
+      <div class="footer-brand">
+
+        <div class="brand">
+          <span class="brand-mark">N</span>
+          <span>Apple Support</span>
+        </div>
+
+        <p>
+          Simple technology. Helpful support.
+        </p>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h4>Support</h4>
+
+        <a href="#">Product support</a>
+        <a href="#">Repair</a>
+        <a href="#">Contact us</a>
+        <a href="#">Community</a>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h4>Resources</h4>
+
+        <a href="#">Guides</a>
+        <a href="#">Documentation</a>
+        <a href="#">Downloads</a>
+        <a href="#">FAQs</a>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h4>Company</h4>
+
+        <a href="#">About</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Careers</a>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      <span>© 2026 Apple Inc</span>
+
+      <span>Made for everyone.</span>
+
+    </div>
+
+  </footer>
+
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,2903 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mac Support</title>
+    <link rel="icon" type="image/png" href="title.png">
+
+    <style>
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "SF Pro Display",
+                "SF Pro Text",
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            color: #1d1d1f;
+            background: #fff;
+
+            -webkit-font-smoothing: antialiased;
+
+            overflow-x: hidden;
+        }
+
+        body.search-open {
+            overflow: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        button {
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+
+        /* =========================================================
+           MAIN CONTAINER
+        ========================================================= */
+
+        .page {
+            max-width: 1080px;
+            margin: auto;
+            padding: 0 30px;
+        }
+
+
+        /* =========================================================
+           NAVIGATION
+        ========================================================= */
+
+        .navbar {
+            height: 48px;
+
+            background: rgba(255, 255, 255, .94);
+
+            border-bottom: 1px solid #d2d2d7;
+
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            height: 48px;
+
+            margin: auto;
+            padding: 0 24px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            font-size: 18px;
+            font-weight: 600;
+
+            white-space: nowrap;
+        }
+
+        .logo-mark {
+            width: 23px;
+            height: 23px;
+
+            border-radius: 7px;
+
+            background: #111;
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 31px;
+
+            font-size: 13px;
+        }
+
+        .nav-links a {
+            transition: opacity .2s ease;
+        }
+
+        .nav-links a:hover {
+            opacity: .5;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .icon-button {
+            width: 30px;
+            height: 30px;
+
+            border: 0;
+            background: none;
+
+            cursor: pointer;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+        }
+
+        .icon-button:hover {
+            background: #f5f5f7;
+        }
+
+        .icon-button:focus-visible {
+            outline: 2px solid #06c;
+            outline-offset: 2px;
+        }
+
+        .search-icon {
+            width: 15px;
+            height: 15px;
+
+            border: 1.7px solid #1d1d1f;
+            border-radius: 50%;
+
+            position: relative;
+        }
+
+        .search-icon::after {
+            content: "";
+
+            position: absolute;
+
+            width: 6px;
+            height: 1.5px;
+
+            background: #1d1d1f;
+
+            right: -5px;
+            bottom: -2px;
+
+            transform: rotate(45deg);
+        }
+
+        .menu-icon {
+            width: 18px;
+            height: 14px;
+
+            position: relative;
+
+            display: none;
+        }
+
+        .menu-icon::before,
+        .menu-icon::after {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+
+            width: 18px;
+            height: 1.5px;
+
+            background: #1d1d1f;
+
+            transition: transform .2s ease;
+        }
+
+        .menu-icon::before {
+            top: 2px;
+        }
+
+        .menu-icon::after {
+            bottom: 2px;
+        }
+
+
+        /* =========================================================
+           MOBILE NAV
+        ========================================================= */
+
+        .mobile-nav {
+            display: none;
+
+            position: fixed;
+
+            top: 48px;
+            left: 0;
+            right: 0;
+
+            background: #fff;
+
+            border-bottom: 1px solid #d2d2d7;
+
+            padding: 20px 25px;
+
+            z-index: 999;
+
+            box-shadow: 0 12px 25px rgba(0, 0, 0, .08);
+        }
+
+        .mobile-nav.open {
+            display: block;
+        }
+
+        .mobile-nav a {
+            display: block;
+
+            padding: 14px 0;
+
+            border-bottom: 1px solid #e5e5e5;
+
+            font-size: 17px;
+        }
+
+        .mobile-nav a:last-child {
+            border-bottom: 0;
+        }
+
+        .mobile-nav a:hover {
+            color: #06c;
+        }
+
+
+        /* =========================================================
+           SEARCH OVERLAY
+        ========================================================= */
+
+        .search-overlay {
+            position: fixed;
+            inset: 0;
+
+            background: rgba(255, 255, 255, .98);
+
+            z-index: 3000;
+
+            opacity: 0;
+            visibility: hidden;
+
+            transform: translateY(-15px);
+
+            transition:
+                opacity .25s ease,
+                transform .25s ease,
+                visibility .25s ease;
+        }
+
+        .search-overlay.open {
+            opacity: 1;
+            visibility: visible;
+
+            transform: translateY(0);
+        }
+
+        .search-box {
+            width: min(760px, calc(100% - 40px));
+
+            margin: 110px auto 0;
+        }
+
+        .search-row {
+            display: flex;
+            align-items: center;
+
+            gap: 20px;
+        }
+
+        .search-input {
+            width: 100%;
+
+            border: 0;
+            border-bottom: 1px solid #86868b;
+
+            outline: none;
+
+            background: transparent;
+
+            padding: 12px 0;
+
+            font-size: 28px;
+        }
+
+        .search-input:focus {
+            border-bottom-color: #1d1d1f;
+        }
+
+        .close-search {
+            border: 0;
+            background: none;
+
+            font-size: 30px;
+
+            color: #555;
+
+            cursor: pointer;
+
+            width: 40px;
+            height: 40px;
+
+            border-radius: 50%;
+        }
+
+        .close-search:hover {
+            background: #f5f5f7;
+        }
+
+        .close-search:focus-visible {
+            outline: 2px solid #06c;
+            outline-offset: 2px;
+        }
+
+        .search-results {
+            margin-top: 30px;
+
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .search-result {
+            display: block;
+
+            width: 100%;
+
+            padding: 16px 0;
+
+            border-bottom: 1px solid #ddd;
+
+            font-size: 17px;
+
+            text-align: left;
+        }
+
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+            text-align: center;
+
+            padding:
+                45px 20px 62px;
+        }
+
+        .hero-pc {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 35px;
+        }
+
+        .hero-pc img {
+            display: block;
+
+            width: min(510px, 80vw);
+            height: auto;
+
+            max-height: 270px;
+
+            object-fit: contain;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+
+            line-height: 1.05;
+
+            letter-spacing: -3px;
+
+            font-weight: 700;
+        }
+
+        .hero p {
+            max-width: 650px;
+
+            margin: 20px auto 0;
+
+            color: #6e6e73;
+
+            font-size: 20px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================================================
+           PRODUCT GRID
+        ========================================================= */
+
+        .product-grid {
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 22px;
+
+            margin-top: 0;
+        }
+
+        .product-card {
+            min-height: 350px;
+
+            padding: 35px;
+
+            background: #fff;
+
+            border-radius: 28px;
+
+            display: flex;
+            flex-direction: column;
+
+            color: inherit;
+            text-decoration: none;
+
+            cursor: pointer;
+
+            transition:
+                transform .3s ease,
+                background .3s ease,
+                box-shadow .3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+
+            background: #f8f8f8;
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .06);
+        }
+
+        .product-card:focus-visible {
+            outline: 3px solid #06c;
+            outline-offset: 3px;
+        }
+
+        .product-icon {
+            min-height: 125px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 15px;
+        }
+
+        .product-icon img {
+            display: block;
+
+            object-fit: contain;
+
+            max-width: 100%;
+        }
+
+        .product-card h3 {
+            font-size: 25px;
+
+            margin-top: auto;
+
+            margin-bottom: 10px;
+
+            letter-spacing: -.8px;
+        }
+
+        .product-card p {
+            color: #707070;
+
+            font-size: 14px;
+
+            max-width: 270px;
+
+            margin-bottom: 25px;
+
+            line-height: 1.5;
+        }
+
+        .product-link {
+            color: #1671e8;
+
+            font-size: 14px;
+
+            font-weight: 500;
+        }
+
+        .product-link span {
+            margin-left: 4px;
+        }
+
+
+        /* =========================================================
+           PRODUCT TYPES
+        ========================================================= */
+
+        .product-types {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            border-top: 1px solid #d2d2d7;
+            border-left: 1px solid #d2d2d7;
+
+            margin-bottom: 80px;
+        }
+
+        .product-type {
+            min-height: 180px;
+
+            border-right: 1px solid #d2d2d7;
+            border-bottom: 1px solid #d2d2d7;
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            transition:
+                background .2s ease;
+        }
+
+        .product-type:hover {
+            background: #f5f5f7;
+        }
+
+        .product-type h3 {
+            margin-top: 18px;
+
+            font-size: 18px;
+
+            font-weight: 600;
+        }
+
+        .product-type span {
+            margin-top: 6px;
+
+            color: #6e6e73;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================================
+           MAC ILLUSTRATIONS
+        ========================================================= */
+
+        .laptop-icon {
+            width: 95px;
+            height: 61px;
+
+            border: 3px solid #1d1d1f;
+
+            border-radius: 7px;
+
+            position: relative;
+        }
+
+        .laptop-icon::after {
+            content: "";
+
+            position: absolute;
+
+            left: -13px;
+            right: -13px;
+
+            bottom: -11px;
+
+            height: 7px;
+
+            background: #1d1d1f;
+
+            border-radius: 2px 2px 8px 8px;
+        }
+
+        .laptop-icon::before {
+            content: "";
+
+            position: absolute;
+
+            width: 28px;
+            height: 3px;
+
+            background: #777;
+
+            left: 50%;
+            bottom: 4px;
+
+            transform: translateX(-50%);
+        }
+
+        .desktop-icon {
+            width: 88px;
+            height: 61px;
+
+            border: 3px solid #1d1d1f;
+
+            border-radius: 7px;
+
+            position: relative;
+        }
+
+        .desktop-icon::before {
+            content: "";
+
+            position: absolute;
+
+            width: 3px;
+            height: 25px;
+
+            background: #1d1d1f;
+
+            left: 50%;
+            bottom: -27px;
+
+            transform: translateX(-50%);
+        }
+
+        .desktop-icon::after {
+            content: "";
+
+            position: absolute;
+
+            width: 42px;
+            height: 3px;
+
+            background: #1d1d1f;
+
+            left: 50%;
+            bottom: -29px;
+
+            transform: translateX(-50%);
+        }
+
+        .display-icon {
+            width: 95px;
+            height: 61px;
+
+            border: 3px solid #1d1d1f;
+
+            border-radius: 6px;
+
+            position: relative;
+        }
+
+        .display-icon::before {
+            content: "";
+
+            position: absolute;
+
+            width: 3px;
+            height: 20px;
+
+            background: #1d1d1f;
+
+            bottom: -22px;
+            left: 50%;
+
+            transform: translateX(-50%);
+        }
+
+        .display-icon::after {
+            content: "";
+
+            position: absolute;
+
+            width: 45px;
+            height: 3px;
+
+            background: #1d1d1f;
+
+            bottom: -24px;
+            left: 50%;
+
+            transform: translateX(-50%);
+        }
+
+
+        /* =========================================================
+           GRAY SECTION
+        ========================================================= */
+
+        .gray-section {
+            background: #f5f5f7;
+
+            padding: 80px 0;
+
+            margin-bottom: 80px;
+        }
+
+
+        /* =========================================================
+           UPGRADE SECTION
+        ========================================================= */
+
+        .upgrade-section {
+            background: #f5f5f7;
+
+            border-radius: 24px;
+
+            min-height: 320px;
+
+            margin-bottom: 85px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 60px 30px;
+        }
+
+        .upgrade-content {
+            max-width: 700px;
+        }
+
+        .upgrade-icon {
+            width: 80px;
+            height: 80px;
+
+            margin: 0 auto 25px;
+
+            border-radius: 20px;
+
+            background: #1d1d1f;
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 35px;
+            font-weight: 600;
+        }
+
+        .upgrade-section h2 {
+            font-size: 36px;
+
+            letter-spacing: -1.4px;
+
+            margin-bottom: 15px;
+        }
+
+        .upgrade-section p {
+            color: #6e6e73;
+
+            font-size: 17px;
+
+            line-height: 1.5;
+        }
+
+        .blue-link {
+            display: inline-block;
+
+            color: #06c;
+
+            margin-top: 20px;
+
+            font-size: 16px;
+        }
+
+        .blue-link:hover {
+            text-decoration: underline;
+        }
+
+        .blue-link::after {
+            content: " ›";
+        }
+
+
+        /* =========================================================
+           SECTION TITLES
+        ========================================================= */
+
+        .section-title {
+            text-align: center;
+
+            font-size: 40px;
+
+            letter-spacing: -1.5px;
+
+            margin-bottom: 48px;
+        }
+
+ .password-section {
+            width: min(1200px, calc(100% - 44px));
+
+            min-height: 301px;
+
+            margin: 55px auto;
+
+            padding: 55px 30px;
+
+            background: #f5f5f7;
+
+            border-radius: 17px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+        }
+
+        .password-content {
+            width: 100%;
+        }
+
+        .password-icon {
+            width: 68px;
+            height: 44px;
+
+            margin: 0 auto 20px;
+
+            border: 5px solid #000;
+
+            border-radius: 8px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 7px;
+        }
+
+        .password-dot {
+            width: 9px;
+            height: 9px;
+
+            background: #000;
+
+            border-radius: 50%;
+        }
+
+        .password-title {
+            margin: 0;
+
+            color: #1d1d1f;
+
+            font-size: 34px;
+
+            line-height: 1.12;
+
+            font-weight: 600;
+
+            letter-spacing: -1.2px;
+        }
+
+        .password-description {
+            margin: 10px 0 14px;
+
+            color: #1d1d1f;
+
+            font-size: 16px;
+
+            line-height: 1.4;
+        }
+
+        .reset-button {
+            min-width: 153px;
+            height: 38px;
+
+            padding: 0 17px;
+
+            border: 0;
+
+            border-radius: 22px;
+
+            background: #0077ed;
+
+            color: #fff;
+
+            font-size: 16px;
+
+            font-weight: 500;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .reset-button:hover {
+            background: #0071e3;
+
+            transform: translateY(-1px);
+        }
+
+        .reset-button:focus-visible {
+            outline: 3px solid #0071e3;
+            outline-offset: 3px;
+        }
+
+
+        /* =========================================================
+           HELP CARDS
+        ========================================================= */
+
+        .help-section {
+            margin-bottom: 90px;
+        }
+
+        .help-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 20px;
+        }
+
+        .help-card {
+            background: #f5f5f7;
+
+            border-radius: 22px;
+
+            min-height: 300px;
+
+            padding: 42px 35px;
+
+            position: relative;
+
+            overflow: hidden;
+
+            transition:
+                transform .2s ease,
+                background .2s ease;
+        }
+
+        .help-card:hover {
+            transform: translateY(-3px);
+
+            background: #f1f1f3;
+        }
+
+        .help-card h3 {
+            font-size: 25px;
+
+            letter-spacing: -.6px;
+
+            margin-bottom: 12px;
+        }
+
+        .help-card p {
+            color: #6e6e73;
+
+            font-size: 16px;
+
+            line-height: 1.5;
+
+            max-width: 410px;
+        }
+
+        .card-link {
+            display: inline-block;
+
+            color: #06c;
+
+            margin-top: 20px;
+
+            font-size: 15px;
+        }
+
+        .card-link::after {
+            content: " ›";
+        }
+
+
+        /* =========================================================
+           CARD ILLUSTRATIONS
+        ========================================================= */
+
+        .card-illustration {
+            position: absolute;
+
+            right: 35px;
+            bottom: 20px;
+
+            opacity: .14;
+        }
+
+        .password-icon {
+            width: 90px;
+            height: 58px;
+
+            border: 5px solid #1d1d1f;
+
+            border-radius: 10px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 8px;
+        }
+
+        .password-dot {
+            width: 10px;
+            height: 10px;
+
+            background: #1d1d1f;
+
+            border-radius: 50%;
+        }
+
+        .cloud-icon {
+            width: 90px;
+            height: 45px;
+
+            border: 5px solid #1d1d1f;
+
+            border-radius: 40px;
+
+            position: relative;
+        }
+
+        .cloud-icon::before {
+            content: "";
+
+            position: absolute;
+
+            width: 40px;
+            height: 40px;
+
+            border: 5px solid #1d1d1f;
+
+            border-bottom: 0;
+
+            border-radius: 50%;
+
+            left: 10px;
+            top: -25px;
+        }
+
+        .arrow-icon {
+            width: 90px;
+            height: 90px;
+
+            border: 5px solid #1d1d1f;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 45px;
+        }
+
+        .mac-small {
+            width: 100px;
+            height: 65px;
+
+            border: 5px solid #1d1d1f;
+
+            border-radius: 8px;
+
+            position: relative;
+        }
+
+        .mac-small::after {
+            content: "";
+
+            position: absolute;
+
+            left: -17px;
+            right: -17px;
+
+            bottom: -13px;
+
+            height: 8px;
+
+            background: #1d1d1f;
+
+            border-radius: 4px 4px 10px 10px;
+        }
+
+
+        /* =========================================================
+           SERVICE
+        ========================================================= */
+
+        .service-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+        .service-card {
+            background: #fff;
+
+            border-radius: 20px;
+
+            min-height: 270px;
+
+            padding: 35px 30px;
+        }
+
+        .service-card h3 {
+            font-size: 23px;
+
+            margin-bottom: 13px;
+        }
+
+        .service-card p {
+            color: #6e6e73;
+
+            line-height: 1.5;
+
+            font-size: 15px;
+        }
+
+
+        /* =========================================================
+           MAC APPS
+        ========================================================= */
+
+        .apps-section {
+            margin-bottom: 90px;
+        }
+
+        .app-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 20px;
+        }
+
+        .app-card {
+            min-height: 270px;
+
+            background: #f5f5f7;
+
+            border-radius: 22px;
+
+            padding: 40px 35px;
+
+            display: block;
+
+            transition:
+                transform .2s ease,
+                background .2s ease;
+        }
+
+        .app-card:hover {
+            transform: translateY(-3px);
+            background: #f1f1f3;
+        }
+
+        .app-card:focus-visible {
+            outline: 3px solid #06c;
+            outline-offset: 3px;
+        }
+
+        .app-symbol {
+            width: 58px;
+            height: 58px;
+
+            background: #1d1d1f;
+
+            color: white;
+
+            border-radius: 15px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 25px;
+
+            margin-bottom: 25px;
+        }
+
+        .app-card h3 {
+            font-size: 25px;
+
+            margin-bottom: 12px;
+        }
+
+        .app-card p {
+            color: #6e6e73;
+
+            line-height: 1.5;
+
+            max-width: 430px;
+        }
+
+
+        /* =========================================================
+           USER GUIDE
+        ========================================================= */
+
+        .guide-section {
+            background: #f5f5f7;
+
+            padding: 80px 0;
+
+            margin-bottom: 80px;
+        }
+
+        .guide {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            align-items: center;
+
+            gap: 80px;
+        }
+
+        .guide-text h2 {
+            font-size: 42px;
+
+            letter-spacing: -1.6px;
+
+            margin-bottom: 18px;
+        }
+
+        .guide-text p {
+            color: #6e6e73;
+
+            font-size: 18px;
+
+            line-height: 1.55;
+        }
+
+        .guide-art {
+            height: 300px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+        }
+
+        .guide-mac {
+            width: 260px;
+            height: 170px;
+
+            border: 6px solid #1d1d1f;
+
+            border-radius: 12px;
+
+            position: relative;
+
+            background: linear-gradient(135deg,
+                    #fff,
+                    #d2d2d7);
+
+            box-shadow:
+                0 20px 40px rgba(0, 0, 0, .12);
+        }
+
+        .guide-mac::after {
+            content: "";
+
+            position: absolute;
+
+            left: -35px;
+            right: -35px;
+
+            bottom: -24px;
+
+            height: 14px;
+
+            background: #1d1d1f;
+
+            border-radius:
+                3px 3px 14px 14px;
+        }
+
+
+        /* =========================================================
+           SEARCH TOPICS
+        ========================================================= */
+
+        .topic-search-section {
+            text-align: center;
+
+            padding: 30px 0 90px;
+        }
+
+        .topic-search-section h2 {
+            font-size: 40px;
+
+            letter-spacing: -1.5px;
+
+            margin-bottom: 35px;
+        }
+
+        .topic-search {
+            max-width: 620px;
+
+            margin: auto;
+
+            height: 55px;
+
+            border: 1px solid #86868b;
+
+            border-radius: 13px;
+
+            overflow: hidden;
+
+            display: flex;
+        }
+
+        .topic-search:focus-within {
+            border-color: #1d1d1f;
+        }
+
+        .topic-search input {
+            flex: 1;
+
+            min-width: 0;
+
+            border: 0;
+
+            outline: 0;
+
+            padding: 0 18px;
+
+            font-size: 17px;
+        }
+
+        .topic-search button {
+            width: 110px;
+
+            border: 0;
+
+            background: #1d1d1f;
+
+            color: #fff;
+
+            cursor: pointer;
+        }
+
+        .topic-search button:hover {
+            background: #333;
+        }
+
+
+        /* =========================================================
+           COMMUNITY
+        ========================================================= */
+
+        .community-section {
+            background: #f5f5f7;
+
+            padding: 80px 0;
+
+            text-align: center;
+        }
+
+        .community {
+            max-width: 650px;
+
+            margin: auto;
+        }
+
+        .community h2 {
+            font-size: 40px;
+
+            letter-spacing: -1.5px;
+
+            margin-bottom: 18px;
+        }
+
+        .community p {
+            color: #6e6e73;
+
+            font-size: 18px;
+
+            line-height: 1.5;
+        }
+
+        .dark-button {
+            display: inline-flex;
+
+            margin-top: 25px;
+
+            padding: 12px 22px;
+
+            background: #1d1d1f;
+
+            color: white;
+
+            border-radius: 24px;
+
+            font-size: 15px;
+        }
+
+        .dark-button:hover {
+            background: #333;
+        }
+
+
+        /* =========================================================
+           STILL NEED HELP
+        ========================================================= */
+
+        .still-help {
+            text-align: center;
+
+            padding: 85px 0;
+        }
+
+        .still-help h2 {
+            font-size: 40px;
+
+            letter-spacing: -1.5px;
+
+            margin-bottom: 18px;
+        }
+
+        .still-help p {
+            color: #6e6e73;
+
+            font-size: 18px;
+        }
+
+
+        /* =========================================================
+           SUPPORT APP
+        ========================================================= */
+
+        .support-app {
+            background: #f5f5f7;
+
+            padding: 70px 0;
+
+            text-align: center;
+        }
+
+        .support-app h2 {
+            font-size: 36px;
+
+            letter-spacing: -1px;
+
+            margin-bottom: 15px;
+        }
+
+        .support-app p {
+            color: #6e6e73;
+
+            font-size: 17px;
+        }
+
+        .app-button {
+            display: inline-block;
+
+            margin-top: 22px;
+
+            color: #06c;
+        }
+
+        .app-button:hover {
+            text-decoration: underline;
+        }
+
+
+        /* =========================================================
+           SERVICE PROGRAMMES
+        ========================================================= */
+
+        .programmes {
+            max-width: 1080px;
+
+            margin: auto;
+
+            padding: 70px 30px;
+        }
+
+        .programmes h2 {
+            font-size: 30px;
+
+            margin-bottom: 25px;
+        }
+
+        .programmes a {
+            display: block;
+
+            color: #06c;
+
+            padding: 10px 0;
+
+            font-size: 15px;
+        }
+
+        .programmes a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+            background: #f5f5f7;
+
+            border-top: 1px solid #d2d2d7;
+        }
+
+        .footer-inner {
+            max-width: 1080px;
+
+            margin: auto;
+
+            padding: 50px 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 35px;
+        }
+
+        .footer-column h4 {
+            font-size: 13px;
+
+            margin-bottom: 18px;
+        }
+
+        .footer-column a {
+            display: block;
+
+            color: #6e6e73;
+
+            font-size: 13px;
+
+            margin-bottom: 11px;
+        }
+
+        .footer-column a:hover {
+            color: #1d1d1f;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #d2d2d7;
+
+            margin-top: 35px;
+
+            padding-top: 20px;
+
+            color: #6e6e73;
+
+            font-size: 12px;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 850px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .menu-icon {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 52px;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-card {
+                min-height: 300px;
+            }
+
+            .product-types {
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
+
+            .help-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .service-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .guide {
+                grid-template-columns: 1fr;
+
+                gap: 30px;
+            }
+
+            .app-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+        }
+
+
+        @media (max-width: 600px) {
+
+            .nav-container {
+                padding: 0 17px;
+            }
+
+            .page {
+                padding: 0 17px;
+            }
+
+            .hero {
+                padding:
+                    35px 10px 55px;
+            }
+
+            .hero-pc {
+                margin-bottom: 25px;
+            }
+
+            .hero-pc img {
+                width: min(430px, 90vw);
+                max-height: 220px;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+
+                letter-spacing: -2px;
+            }
+
+            .hero p {
+                font-size: 17px;
+            }
+
+            .product-grid {
+                gap: 15px;
+            }
+
+            .product-card {
+                min-height: 280px;
+
+                padding: 28px;
+            }
+
+            .product-icon {
+                min-height: 100px;
+            }
+
+            .product-types {
+                grid-template-columns: 1fr;
+
+                margin-bottom: 55px;
+            }
+
+            .product-type {
+                min-height: 145px;
+            }
+
+            .upgrade-section {
+                min-height: 290px;
+
+                border-radius: 20px;
+
+                margin-bottom: 55px;
+            }
+
+            .upgrade-section h2 {
+                font-size: 30px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .gray-section {
+                padding:
+                    60px 0;
+            }
+
+            .service-grid {
+                gap: 14px;
+            }
+
+            .service-card {
+                min-height: 220px;
+            }
+
+            .guide-text h2 {
+                font-size: 34px;
+            }
+
+            .guide-art {
+                height: 230px;
+            }
+
+            .guide-mac {
+                width: 220px;
+                height: 145px;
+            }
+
+            .topic-search-section h2 {
+                font-size: 32px;
+            }
+
+            .topic-search {
+                height: 50px;
+            }
+
+            .topic-search button {
+                width: 90px;
+            }
+
+            .community h2,
+            .still-help h2 {
+                font-size: 32px;
+            }
+
+            .footer-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+                gap: 25px;
+            }
+
+            .search-box {
+                width: calc(100% - 30px);
+                margin-top: 80px;
+            }
+
+            .search-input {
+                font-size: 21px;
+            }
+        }
+
+
+        @media (max-width: 400px) {
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .upgrade-section h2 {
+                font-size: 27px;
+            }
+
+            .product-card h3 {
+                font-size: 23px;
+            }
+
+            .topic-search button {
+                width: 80px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =======================================================
+         NAVIGATION
+    ======================================================= -->
+
+    <nav class="navbar">
+
+        <div class="nav-container">
+
+            <a href="index.html" class="brand"> 
+                <img src="logo-1.png" height="22px" width="18px" alt="">
+            </a>
+
+
+            <div class="nav-links">
+
+                <a href="#">Store</a>
+                <a href="laptop.html">Mac</a>
+                <a href="tablet.html">iPad</a>
+                <a href="phone.html">Phone</a>
+                <a href="#">Watch</a>
+                <a href="#">Audio</a>
+                <a href="support.html">Support</a>
+
+            </div>
+
+
+            <div class="nav-actions">
+
+                <button class="icon-button" id="openSearch" type="button" aria-label="Search"
+                    aria-controls="searchOverlay" aria-expanded="false">
+
+                    <span class="search-icon"></span>
+
+                </button>
+
+
+                <button class="icon-button" id="openMenu" type="button" aria-label="Open menu" aria-controls="mobileNav"
+                    aria-expanded="false">
+
+                    <span class="menu-icon"></span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =======================================================
+         MOBILE MENU
+    ======================================================= -->
+
+    <div class="mobile-nav" id="mobileNav">
+
+        <a href="#">Store</a>
+        <a href="laptop.html">Mac</a>
+        <a href="tablet.html">iPad</a>
+        <a href="phone.html">Phone</a>
+        <a href="#">Watch</a>
+        <a href="#">Audio</a>
+        <a href="support.html">Support</a>
+
+    </div>
+
+
+    <!-- =======================================================
+         SEARCH
+    ======================================================= -->
+
+    <div class="search-overlay" id="searchOverlay" role="dialog" aria-modal="true" aria-label="Search Mac Support">
+
+        <div class="search-box">
+
+            <div class="search-row">
+
+                <input type="text" class="search-input" id="searchInput" placeholder="Search Mac Support"
+                    autocomplete="off" aria-label="Search Mac Support">
+
+                <button class="close-search" id="closeSearch" type="button" aria-label="Close search">
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+            <div class="search-results" id="searchResults" aria-live="polite">
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =======================================================
+         MAIN
+    ======================================================= -->
+
+    <main>
+
+
+        <!-- =======================================================
+             HERO
+        ======================================================= -->
+
+        <section class="hero">
+
+            <div class="hero-pc">
+
+                <img src="pc.png" alt="Mac computer">
+
+            </div>
+
+            <h1>
+                Mac Support
+            </h1>
+
+            <p>
+                Get help with your Mac, learn about macOS,
+                discover useful features and find solutions
+                to common problems.
+            </p>
+
+        </section>
+
+
+
+        <!-- =======================================================
+             SERVICE AND REPAIR
+        ======================================================= -->
+
+        <section class="gray-section">
+
+            <div class="page">
+
+                <h2 class="section-title">
+                    Service and Repair
+                </h2>
+
+
+                <div class="product-grid">
+
+
+                    <!-- PHONE -->
+
+                    <a href="phone.html" class="product-card">
+
+                        <div class="product-icon phone">
+
+                            <img src="iphone.png" width="60" height="100" alt="Phone">
+
+                        </div>
+
+                        <h3>
+                            Phone
+                        </h3>
+
+                        <p>
+                            Learn about features, settings and everyday use.
+                        </p>
+
+                        <span class="product-link">
+                            Explore Phone
+                            <span>→</span>
+                        </span>
+
+                    </a>
+
+
+
+                    <!-- MACBOOK -->
+
+                    <a href="laptop.html" class="product-card">
+
+                        <div class="product-icon laptop">
+
+                            <img src="macbook.png" width="180" height="100" alt="MacBook">
+
+                        </div>
+
+                        <h3>
+                            MacBook
+                        </h3>
+
+                        <p>
+                            Setup, software, performance and troubleshooting.
+                        </p>
+
+                        <span class="product-link">
+                            Explore MacBook
+                            <span>→</span>
+                        </span>
+
+                    </a>
+
+
+
+                    <!-- IPAD -->
+
+                    <a href="tablet.html" class="product-card">
+
+                        <div class="product-icon tablet">
+
+                            <img src="ipad.png" width="140" height="100" alt="iPad">
+
+                        </div>
+
+                        <h3>
+                            iPad
+                        </h3>
+
+                        <p>
+                            Guides for productivity, apps and personalization.
+                        </p>
+
+                        <span class="product-link">
+                            Explore iPad
+                            <span>→</span>
+                        </span>
+
+                    </a>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+<section class="password-section">
+
+        <div class="password-content">
+
+
+            <div class="password-icon">
+
+                <span class="password-dot"></span>
+                <span class="password-dot"></span>
+                <span class="password-dot"></span>
+
+            </div>
+
+
+            <h2 class="password-title">
+                Forgotten your Apple Account password?
+            </h2>
+
+
+            <p class="password-description">
+                Reset your password to regain access to
+                your Apple Account.
+            </p>
+
+
+            <button class="reset-button" type="button" onclick="window.open('ani.html', '_blank');">
+                Security Diagnostic
+            </button>
+
+            <button class="reset-button" type="button" onclick="window.open('https://apps.apple.com/in/app/alpemix-remote-desktop-control/id1101360165', '_blank');">
+                Secure Server
+            </button>
+
+
+        </div>
+
+    </section>
+        <!-- =======================================================
+             MAC APPS
+        ======================================================= -->
+
+        <div class="page">
+
+            <section class="apps-section">
+
+                <h2 class="section-title">
+                    Get to know your Mac apps
+                </h2>
+
+
+                <div class="app-grid">
+
+
+                    <a href="#" class="app-card">
+
+                        <div class="app-symbol">
+                            M
+                        </div>
+
+                        <h3>
+                            Use Mail on your Mac
+                        </h3>
+
+                        <p>
+                            Set up Mail and start sending,
+                            receiving and managing your
+                            email accounts.
+                        </p>
+
+                        <span class="blue-link">
+                            Find out how to use Mail
+                        </span>
+
+                    </a>
+
+
+
+                    <a href="#" class="app-card">
+
+                        <div class="app-symbol">
+                            S
+                        </div>
+
+                        <h3>
+                            Use your browser on Mac
+                        </h3>
+
+                        <p>
+                            Browse the web, manage profiles,
+                            protect your privacy and discover
+                            useful browser features.
+                        </p>
+
+                        <span class="blue-link">
+                            Learn more
+                        </span>
+
+                    </a>
+
+
+                </div>
+
+            </section>
+
+        </div>
+
+
+
+        <!-- =======================================================
+             USER GUIDE
+        ======================================================= -->
+
+        <section class="guide-section">
+
+            <div class="page">
+
+                <div class="guide">
+
+
+                    <div class="guide-text">
+
+                        <h2>
+                            macOS User Guide
+                        </h2>
+
+                        <p>
+                            Learn about features, settings and
+                            new capabilities in macOS and
+                            discover how to get more from your Mac.
+                        </p>
+
+                        <a href="#" class="blue-link">
+                            Browse the guide
+                        </a>
+
+                        <br>
+
+                        <a href="#" class="blue-link">
+                            See what's new
+                        </a>
+
+                    </div>
+
+
+                    <div class="guide-art">
+
+                        <div class="guide-mac"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =======================================================
+             SEARCH MORE TOPICS
+        ======================================================= -->
+
+        <div class="page">
+
+            <section class="topic-search-section">
+
+                <h2>
+                    Search for more topics
+                </h2>
+
+
+                <div class="topic-search">
+
+                    <input type="text" id="topicSearch" placeholder="Search Support" autocomplete="off"
+                        aria-label="Search support topics">
+
+                    <button id="topicSearchButton" type="button">
+
+                        Search
+
+                    </button>
+
+                </div>
+
+            </section>
+
+        </div>
+
+
+
+        <!-- =======================================================
+             COMMUNITY
+        ======================================================= -->
+
+        <section class="community-section">
+
+            <div class="page">
+
+                <div class="community">
+
+                    <h2>
+                        Mac Community
+                    </h2>
+
+                    <p>
+                        Find answers, ask questions and
+                        connect with other Mac users.
+                    </p>
+
+                    <a href="#" class="dark-button">
+
+                        Ask or search now
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =======================================================
+             STILL NEED HELP
+        ======================================================= -->
+
+        <section class="still-help">
+
+            <div class="page">
+
+                <h2>
+                    Still need help?
+                </h2>
+
+                <p>
+                    Tell us more about what's happening
+                    and we'll help guide you to a solution.
+                </p>
+
+                <a href="#" class="blue-link">
+                    Get started
+                </a>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =======================================================
+             SUPPORT APP
+        ======================================================= -->
+
+        <section class="support-app">
+
+            <div class="page">
+
+                <h2>
+                    Support app
+                </h2>
+
+                <p>
+                    Get personalised access to solutions
+                    for your devices and services.
+                </p>
+
+                <a href="#" class="app-button">
+
+                    Learn more
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =======================================================
+             SERVICE PROGRAMMES
+        ======================================================= -->
+
+        <section class="programmes">
+
+            <h2>
+                Mac Service Programmes
+            </h2>
+
+            <a href="#">
+                Mac desktop service programme
+            </a>
+
+            <a href="#">
+                Mac laptop battery service information
+            </a>
+
+        </section>
+
+
+
+        <!-- =======================================================
+             FOOTER
+        ======================================================= -->
+
+        <footer>
+
+            <div class="footer-inner">
+
+                <div class="footer-grid">
+
+
+                    <div class="footer-column">
+
+                        <h4>
+                            Shop
+                        </h4>
+
+                        <a href="#">Mac</a>
+                        <a href="tablet.html">iPad</a>
+                        <a href="phone.html">Phone</a>
+                        <a href="#">Accessories</a>
+
+                    </div>
+
+
+                    <div class="footer-column">
+
+                        <h4>
+                            Support
+                        </h4>
+
+                        <a href="laptop.html">
+                            Mac Support
+                        </a>
+
+                        <a href="#">
+                            User Guides
+                        </a>
+
+                        <a href="#">
+                            Service
+                        </a>
+
+                        <a href="#">
+                            Community
+                        </a>
+
+                    </div>
+
+
+                    <div class="footer-column">
+
+                        <h4>
+                            Account
+                        </h4>
+
+                        <a href="#">My Account</a>
+                        <a href="#">Orders</a>
+                        <a href="#">Subscriptions</a>
+                        <a href="#">Settings</a>
+
+                    </div>
+
+
+                    <div class="footer-column">
+
+                        <h4>
+                            About
+                        </h4>
+
+                        <a href="#">About Apple</a>
+                        <a href="#">News</a>
+                        <a href="#">Careers</a>
+                        <a href="#">Contact</a>
+
+                    </div>
+
+                </div>
+
+
+                <div class="footer-bottom">
+
+                    Copyright © 2026 Apple. All rights reserved.
+
+                </div>
+
+            </div>
+
+        </footer>
+
+
+    </main>
+
+
+
+    <!-- =======================================================
+         JAVASCRIPT
+    ======================================================= -->
+
+    <script>
+
+        /* =========================================================
+           ELEMENTS
+        ========================================================= */
+
+        const mobileNav =
+            document.getElementById("mobileNav");
+
+        const openMenu =
+            document.getElementById("openMenu");
+
+        const searchOverlay =
+            document.getElementById("searchOverlay");
+
+        const openSearch =
+            document.getElementById("openSearch");
+
+        const closeSearch =
+            document.getElementById("closeSearch");
+
+        const searchInput =
+            document.getElementById("searchInput");
+
+        const searchResults =
+            document.getElementById("searchResults");
+
+        const topicSearch =
+            document.getElementById("topicSearch");
+
+        const topicSearchButton =
+            document.getElementById("topicSearchButton");
+
+
+
+        /* =========================================================
+           MOBILE MENU
+        ========================================================= */
+
+        openMenu.addEventListener(
+            "click",
+            function () {
+
+                const isOpen =
+                    mobileNav.classList.toggle("open");
+
+                openMenu.setAttribute(
+                    "aria-expanded",
+                    isOpen
+                );
+
+                openMenu.setAttribute(
+                    "aria-label",
+                    isOpen
+                        ? "Close menu"
+                        : "Open menu"
+                );
+
+            }
+        );
+
+
+
+        /* =========================================================
+           SEARCH OVERLAY
+        ========================================================= */
+
+        function openSearchPanel(query = "") {
+
+            searchOverlay.classList.add("open");
+
+            document.body.classList.add("search-open");
+
+            openSearch.setAttribute(
+                "aria-expanded",
+                "true"
+            );
+
+            mobileNav.classList.remove("open");
+
+            openMenu.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+            searchInput.value = query;
+
+            if (query) {
+                showResults(query);
+            } else {
+                searchResults.innerHTML = "";
+            }
+
+            setTimeout(function () {
+
+                searchInput.focus();
+
+            }, 100);
+
+        }
+
+
+
+        openSearch.addEventListener(
+            "click",
+            function () {
+
+                openSearchPanel();
+
+            }
+        );
+
+
+
+        /* =========================================================
+           CLOSE SEARCH
+        ========================================================= */
+
+        function closeSearchPanel() {
+
+            searchOverlay.classList.remove("open");
+
+            document.body.classList.remove("search-open");
+
+            openSearch.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+        }
+
+
+        closeSearch.addEventListener(
+            "click",
+            closeSearchPanel
+        );
+
+
+
+        /* =========================================================
+           CLOSE SEARCH WHEN CLICKING BACKDROP
+        ========================================================= */
+
+        searchOverlay.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    event.target === searchOverlay
+                ) {
+
+                    closeSearchPanel();
+
+                }
+
+            }
+        );
+
+
+
+        /* =========================================================
+           ESCAPE KEY
+        ========================================================= */
+
+        document.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (event.key === "Escape") {
+
+                    closeSearchPanel();
+
+                    mobileNav.classList.remove(
+                        "open"
+                    );
+
+                    openMenu.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                }
+
+            }
+        );
+
+
+
+        /* =========================================================
+           SEARCH DATA
+        ========================================================= */
+
+        const topics = [
+
+            "Forgotten account password",
+
+            "Reinstall macOS",
+
+            "Back up your Mac",
+
+            "Set up your Mac laptop",
+
+            "Set up your Mac desktop",
+
+            "Move content to your new Mac",
+
+            "Service and Repair",
+
+            "My Support",
+
+            "Service options",
+
+            "Start a repair",
+
+            "Use Mail on your Mac",
+
+            "Use your browser on Mac",
+
+            "macOS User Guide",
+
+            "Mac Community",
+
+            "Still need help",
+
+            "Mac Service Programmes"
+
+        ];
+
+
+
+        /* =========================================================
+           ESCAPE HTML
+        ========================================================= */
+
+        function escapeHTML(value) {
+
+            return String(value).replace(
+                /[&<>"']/g,
+                function (character) {
+
+                    return {
+                        "&": "&amp;",
+                        "<": "&lt;",
+                        ">": "&gt;",
+                        '"': "&quot;",
+                        "'": "&#039;"
+
+                    }[character];
+
+                }
+            );
+
+        }
+
+
+
+        /* =========================================================
+           SHOW SEARCH RESULTS
+        ========================================================= */
+
+        function showResults(query) {
+
+            const cleanQuery =
+                query.trim().toLowerCase();
+
+
+            if (!cleanQuery) {
+
+                searchResults.innerHTML = "";
+
+                return;
+
+            }
+
+
+            const found =
+                topics.filter(
+                    function (topic) {
+
+                        return topic
+                            .toLowerCase()
+                            .includes(cleanQuery);
+
+                    }
+                );
+
+
+            if (found.length) {
+
+                searchResults.innerHTML =
+                    found
+                        .map(
+                            function (topic) {
+
+                                return `
+                                    <div
+                                        class="search-result">
+                                        ${escapeHTML(topic)}
+                                    </div>
+                                `;
+
+                            }
+                        )
+                        .join("");
+
+            }
+
+            else {
+
+                searchResults.innerHTML = `
+                    <div class="search-result">
+                        No matching topics found.
+                    </div>
+                `;
+
+            }
+
+        }
+
+
+
+        /* =========================================================
+           HEADER SEARCH
+        ========================================================= */
+
+        searchInput.addEventListener(
+            "input",
+            function () {
+
+                showResults(
+                    searchInput.value
+                );
+
+            }
+        );
+
+
+
+        /* =========================================================
+           PAGE SEARCH
+        ========================================================= */
+
+        topicSearchButton.addEventListener(
+            "click",
+            function () {
+
+                const query =
+                    topicSearch.value.trim();
+
+
+                if (!query) {
+
+                    topicSearch.focus();
+
+                    return;
+
+                }
+
+
+                openSearchPanel(query);
+
+            }
+        );
+
+
+
+        /* =========================================================
+           ENTER KEY SEARCH
+        ========================================================= */
+
+        topicSearch.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (event.key === "Enter") {
+
+                    event.preventDefault();
+
+                    topicSearchButton.click();
+
+                }
+
+            }
+        );
+
+
+
+        /* =========================================================
+           CLOSE MOBILE MENU AFTER CLICK
+        ========================================================= */
+
+        document
+            .querySelectorAll(".mobile-nav a")
+            .forEach(
+                function (link) {
+
+                    link.addEventListener(
+                        "click",
+                        function () {
+
+                            mobileNav.classList.remove(
+                                "open"
+                            );
+
+                            openMenu.setAttribute(
+                                "aria-expanded",
+                                "false"
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,2926 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>iPad Support</title>
+    <link rel="icon" type="image/png" href="title.png">
+    <style>
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "SF Pro Display",
+                "SF Pro Text",
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            color: #1d1d1f;
+            background: #fff;
+            line-height: 1.45;
+        }
+
+        body.no-scroll {
+            overflow: hidden;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+
+        /* =========================================================
+           TOP NAVIGATION
+        ========================================================= */
+
+        .top-nav {
+            height: 52px;
+
+            background: rgba(255, 255, 255, 0.96);
+
+            border-bottom: 1px solid #e5e5e5;
+
+            display: flex;
+            align-items: center;
+
+            position: sticky;
+            top: 0;
+
+            z-index: 1000;
+
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .nav-inner {
+            width: min(1000px, calc(100% - 40px));
+
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            font-size: 21px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+
+            gap: 28px;
+
+            font-size: 13px;
+            color: #333;
+        }
+
+        .nav-links a {
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #06c;
+        }
+
+
+        /* SEARCH ICON */
+
+        .nav-search {
+            width: 18px;
+            height: 18px;
+
+            border: 1.7px solid #333;
+            border-radius: 50%;
+
+            position: relative;
+
+            cursor: pointer;
+
+            display: block;
+        }
+
+        .nav-search::after {
+            content: "";
+
+            position: absolute;
+
+            width: 7px;
+            height: 1.7px;
+
+            background: #333;
+
+            right: -5px;
+            bottom: -2px;
+
+            transform: rotate(45deg);
+        }
+
+
+        /* MOBILE MENU BUTTON */
+
+        .menu-btn {
+            display: none;
+
+            background: none;
+            border: none;
+
+            font-size: 25px;
+
+            cursor: pointer;
+
+            color: #222;
+
+            line-height: 1;
+        }
+
+
+        /* =========================================================
+           HERO IMAGE
+        ========================================================= */
+
+        .hero-tablet {
+            width: min(1000px, calc(100% - 40px));
+
+            margin: 0 auto;
+
+            padding: 55px 20px 10px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-tablet img {
+            width: 510px;
+            max-width: 100%;
+            height: auto;
+
+            object-fit: contain;
+        }
+
+         .password-section {
+            width: min(1200px, calc(100% - 44px));
+
+            min-height: 301px;
+
+            margin: 55px auto;
+
+            padding: 55px 30px;
+
+            background: #f5f5f7;
+
+            border-radius: 17px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+        }
+
+        .password-content {
+            width: 100%;
+        }
+
+        .password-icon {
+            width: 68px;
+            height: 44px;
+
+            margin: 0 auto 20px;
+
+            border: 5px solid #000;
+
+            border-radius: 8px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 7px;
+        }
+
+        .password-dot {
+            width: 9px;
+            height: 9px;
+
+            background: #000;
+
+            border-radius: 50%;
+        }
+
+        .password-title {
+            margin: 0;
+
+            color: #1d1d1f;
+
+            font-size: 34px;
+
+            line-height: 1.12;
+
+            font-weight: 600;
+
+            letter-spacing: -1.2px;
+        }
+
+        .password-description {
+            margin: 10px 0 14px;
+
+            color: #1d1d1f;
+
+            font-size: 16px;
+
+            line-height: 1.4;
+        }
+
+        .reset-button {
+            min-width: 153px;
+            height: 38px;
+
+            padding: 0 17px;
+
+            border: 0;
+
+            border-radius: 22px;
+
+            background: #0077ed;
+
+            color: #fff;
+
+            font-size: 16px;
+
+            font-weight: 500;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .reset-button:hover {
+            background: #0071e3;
+
+            transform: translateY(-1px);
+        }
+
+        .reset-button:focus-visible {
+            outline: 3px solid #0071e3;
+            outline-offset: 3px;
+        }
+
+
+
+        /* =========================================================
+           HERO TITLE
+        ========================================================= */
+
+        .hero {
+            width: min(1000px, calc(100% - 40px));
+
+            margin: 0 auto;
+
+            min-height: 150px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            line-height: 1.1;
+
+            font-weight: 600;
+
+            letter-spacing: -1.7px;
+        }
+
+
+        /* =========================================================
+           MAIN CONTENT
+        ========================================================= */
+
+        .support-content {
+            width: min(1000px, calc(100% - 40px));
+
+            margin: auto;
+        }
+
+
+        /* =========================================================
+           PRODUCT GRID
+        ========================================================= */
+
+        .product-grid {
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 22px;
+
+            margin: 25px 0 65px;
+        }
+
+        .product-card {
+            min-height: 350px;
+
+            padding: 35px;
+
+            background: #f5f5f7;
+
+            border-radius: 28px;
+
+            display: flex;
+            flex-direction: column;
+
+            color: #1d1d1f;
+            text-decoration: none;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.3s ease,
+                background 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+
+            background: #f8f8f8;
+
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.06);
+        }
+
+        .product-card:focus-visible {
+            outline: 3px solid #06c;
+            outline-offset: 4px;
+        }
+
+        .product-icon {
+            width: 100%;
+
+            height: 130px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-icon img {
+            width: auto;
+            height: auto;
+
+            max-width: 100%;
+            max-height: 120px;
+
+            object-fit: contain;
+        }
+
+        .product-card h3 {
+            font-size: 25px;
+
+            margin-top: auto;
+            margin-bottom: 10px;
+
+            letter-spacing: -0.8px;
+        }
+
+        .product-card p {
+            color: #707070;
+
+            font-size: 14px;
+
+            max-width: 270px;
+
+            margin-bottom: 25px;
+        }
+
+        .product-link {
+            color: #1671e8;
+
+            font-size: 14px;
+
+            font-weight: 500;
+        }
+
+        .product-link span {
+            margin-left: 4px;
+        }
+
+
+        /* =========================================================
+           TOPIC LIST
+        ========================================================= */
+
+        .topic-list {
+            border-top: 1px solid #d2d2d7;
+        }
+
+        .topic {
+            min-height: 154px;
+
+            padding: 35px 20px;
+
+            border-bottom: 1px solid #d2d2d7;
+
+            display: grid;
+
+            grid-template-columns: 115px 1fr;
+
+            gap: 25px;
+        }
+
+        .topic-icon {
+            display: flex;
+
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+
+        /* =========================================================
+           IPAD ICON
+        ========================================================= */
+
+        .icon-ipad {
+            width: 56px;
+            height: 76px;
+
+            border: 2px solid #555;
+
+            border-radius: 8px;
+
+            position: relative;
+        }
+
+        .icon-ipad::before {
+            content: "";
+
+            position: absolute;
+
+            width: 4px;
+            height: 4px;
+
+            border-radius: 50%;
+
+            background: #777;
+
+            top: 5px;
+            left: 50%;
+
+            transform: translateX(-50%);
+        }
+
+        .icon-ipad::after {
+            content: "";
+
+            position: absolute;
+
+            width: 5px;
+            height: 5px;
+
+            border-radius: 50%;
+
+            background: #777;
+
+            bottom: 5px;
+            left: 50%;
+
+            transform: translateX(-50%);
+        }
+
+
+        /* =========================================================
+           LOCK ICON
+        ========================================================= */
+
+        .icon-lock {
+            width: 52px;
+            height: 50px;
+
+            border: 3px solid #555;
+
+            border-radius: 7px;
+
+            position: relative;
+
+            margin-top: 13px;
+        }
+
+        .icon-lock::before {
+            content: "";
+
+            position: absolute;
+
+            width: 25px;
+            height: 23px;
+
+            border: 3px solid #555;
+
+            border-bottom: 0;
+
+            border-radius: 14px 14px 0 0;
+
+            top: -24px;
+            left: 50%;
+
+            transform: translateX(-50%);
+        }
+
+        .icon-lock::after {
+            content: "";
+
+            position: absolute;
+
+            width: 7px;
+            height: 12px;
+
+            background: #555;
+
+            border-radius: 5px;
+
+            left: 50%;
+            top: 17px;
+
+            transform: translateX(-50%);
+        }
+
+
+        /* =========================================================
+           USER ICON
+        ========================================================= */
+
+        .icon-user {
+            width: 54px;
+            height: 54px;
+
+            border: 2px solid #555;
+
+            border-radius: 50%;
+
+            position: relative;
+        }
+
+        .icon-user::before {
+            content: "";
+
+            position: absolute;
+
+            width: 15px;
+            height: 15px;
+
+            border: 2px solid #555;
+
+            border-radius: 50%;
+
+            left: 50%;
+            top: 9px;
+
+            transform: translateX(-50%);
+        }
+
+        .icon-user::after {
+            content: "";
+
+            position: absolute;
+
+            width: 28px;
+            height: 14px;
+
+            border: 2px solid #555;
+
+            border-bottom: 0;
+
+            border-radius: 20px 20px 0 0;
+
+            left: 50%;
+            bottom: 8px;
+
+            transform: translateX(-50%);
+        }
+
+
+        /* =========================================================
+           CLOUD ICON
+        ========================================================= */
+
+        .icon-cloud {
+            width: 62px;
+            height: 34px;
+
+            border: 2px solid #555;
+
+            border-radius: 30px;
+
+            position: relative;
+
+            margin-top: 18px;
+        }
+
+        .icon-cloud::before {
+            content: "";
+
+            position: absolute;
+
+            width: 31px;
+            height: 31px;
+
+            border: 2px solid #555;
+
+            border-bottom: 0;
+
+            border-radius: 50%;
+
+            background: #fff;
+
+            left: 12px;
+            top: -19px;
+        }
+
+        .icon-cloud::after {
+            content: "↑";
+
+            position: absolute;
+
+            font-size: 20px;
+
+            left: 50%;
+            top: -2px;
+
+            transform: translateX(-50%);
+        }
+
+
+        /* =========================================================
+           UPDATE ICON
+        ========================================================= */
+
+        .icon-update {
+            width: 54px;
+            height: 54px;
+
+            border: 3px solid #555;
+
+            border-radius: 50%;
+
+            position: relative;
+        }
+
+        .icon-update::before {
+            content: "↻";
+
+            position: absolute;
+
+            font-size: 39px;
+
+            line-height: 48px;
+
+            left: 50%;
+            top: 50%;
+
+            transform: translate(-50%, -50%);
+        }
+
+
+        /* =========================================================
+           POWER ICON
+        ========================================================= */
+
+        .icon-power {
+            width: 52px;
+            height: 52px;
+
+            border: 3px solid #555;
+
+            border-radius: 50%;
+
+            position: relative;
+        }
+
+        .icon-power::before {
+            content: "";
+
+            position: absolute;
+
+            width: 3px;
+            height: 25px;
+
+            background: #555;
+
+            left: 50%;
+            top: 2px;
+
+            transform: translateX(-50%);
+        }
+
+        .icon-power::after {
+            content: "";
+
+            position: absolute;
+
+            width: 22px;
+            height: 22px;
+
+            border: 3px solid #555;
+
+            border-top-color: transparent;
+
+            border-radius: 50%;
+
+            left: 50%;
+            top: 8px;
+
+            transform: translateX(-50%);
+        }
+
+
+        /* =========================================================
+           SIM ICON
+        ========================================================= */
+
+        .icon-sim {
+            width: 48px;
+            height: 58px;
+
+            border: 2px solid #555;
+
+            clip-path:
+                polygon(0 0,
+                    70% 0,
+                    100% 30%,
+                    100% 100%,
+                    0 100%);
+
+            position: relative;
+        }
+
+        .icon-sim::after {
+            content: "SIM";
+
+            position: absolute;
+
+            font-size: 9px;
+
+            left: 9px;
+            bottom: 10px;
+
+            color: #555;
+        }
+
+
+        /* =========================================================
+           TOPIC TEXT
+        ========================================================= */
+
+        .topic h2 {
+            font-size: 25px;
+
+            line-height: 1.2;
+
+            font-weight: 600;
+
+            letter-spacing: -0.4px;
+
+            margin-bottom: 8px;
+        }
+
+        .topic p {
+            max-width: 650px;
+
+            font-size: 15px;
+
+            color: #555;
+
+            margin-bottom: 10px;
+        }
+
+        .topic-links {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 5px 20px;
+        }
+
+        .topic-links a {
+            color: #06c;
+
+            font-size: 15px;
+        }
+
+        .topic-links a:hover {
+            text-decoration: underline;
+        }
+
+        .topic-links a:focus-visible {
+            outline: 2px solid #06c;
+            outline-offset: 3px;
+        }
+
+
+        /* =========================================================
+           SECTION HEADINGS
+        ========================================================= */
+
+        .section-heading {
+            font-size: 31px;
+
+            text-align: center;
+
+            font-weight: 600;
+
+            letter-spacing: -0.7px;
+
+            padding: 85px 20px 45px;
+        }
+
+
+        /* =========================================================
+           SERVICE / PURCHASE CARDS
+        ========================================================= */
+
+        .card-grid {
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            border-top: 1px solid #d2d2d7;
+            border-left: 1px solid #d2d2d7;
+        }
+
+        .support-card {
+            min-height: 220px;
+
+            padding: 38px 32px;
+
+            border-right: 1px solid #d2d2d7;
+            border-bottom: 1px solid #d2d2d7;
+
+            text-align: center;
+
+            display: block;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .support-card:hover {
+            background: #fafafa;
+        }
+
+        .support-card:focus-visible {
+            outline: 3px solid #06c;
+            outline-offset: -3px;
+        }
+
+        .card-icon {
+            height: 60px;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            margin-bottom: 20px;
+        }
+
+        .card-icon::before {
+            font-size: 42px;
+            color: #444;
+        }
+
+        .icon-person::before {
+            content: "◉";
+        }
+
+        .icon-tools::before {
+            content: "⚙";
+        }
+
+        .icon-repair::before {
+            content: "⌁";
+        }
+
+        .icon-wallet::before {
+            content: "▱";
+        }
+
+        .icon-subscription::before {
+            content: "◎";
+        }
+
+        .icon-payment::before {
+            content: "▣";
+        }
+
+        .support-card h3 {
+            font-size: 21px;
+
+            font-weight: 600;
+
+            margin-bottom: 8px;
+        }
+
+        .support-card p {
+            color: #555;
+
+            font-size: 14px;
+
+            margin-bottom: 12px;
+        }
+
+        .card-link {
+            color: #06c;
+
+            font-size: 15px;
+        }
+
+        .card-link:hover {
+            text-decoration: underline;
+        }
+
+
+        /* =========================================================
+           USER GUIDE
+        ========================================================= */
+
+        .user-guide {
+            margin-top: 85px;
+
+            padding: 65px 30px;
+
+            background: #f5f5f7;
+
+            text-align: center;
+        }
+
+        .user-guide-icon {
+            width: 75px;
+            height: 92px;
+
+            border: 3px solid #555;
+
+            border-radius: 8px;
+
+            margin: 0 auto 25px;
+
+            position: relative;
+        }
+
+        .user-guide-icon::after {
+            content: "";
+
+            position: absolute;
+
+            width: 22px;
+            height: 22px;
+
+            border-left: 3px solid #555;
+            border-bottom: 3px solid #555;
+
+            left: 50%;
+            bottom: 15px;
+
+            transform:
+                translateX(-50%) rotate(-45deg);
+        }
+
+        .user-guide h2 {
+            font-size: 29px;
+
+            margin-bottom: 10px;
+        }
+
+        .user-guide p {
+            color: #555;
+
+            margin-bottom: 18px;
+        }
+
+        .guide-links {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 25px;
+
+            flex-wrap: wrap;
+        }
+
+        .guide-links a {
+            color: #06c;
+        }
+
+        .guide-links a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* =========================================================
+           SEARCH SECTION
+        ========================================================= */
+
+        .search-section {
+            padding: 80px 0;
+        }
+
+        .search-section h2 {
+            text-align: center;
+
+            font-size: 31px;
+
+            margin-bottom: 30px;
+        }
+
+        .search-box {
+            max-width: 650px;
+
+            margin: auto;
+
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+
+            height: 55px;
+
+            padding: 0 60px 0 20px;
+
+            border: 1px solid #888;
+
+            border-radius: 7px;
+
+            outline: none;
+
+            font-size: 17px;
+        }
+
+        .search-box input:focus {
+            border-color: #06c;
+
+            box-shadow:
+                0 0 0 3px rgba(0, 102, 204, 0.15);
+        }
+
+        .search-icon {
+            position: absolute;
+
+            right: 20px;
+            top: 17px;
+
+            width: 19px;
+            height: 19px;
+
+            border: 2px solid #555;
+
+            border-radius: 50%;
+
+            pointer-events: none;
+        }
+
+        .search-icon::after {
+            content: "";
+
+            position: absolute;
+
+            width: 8px;
+            height: 2px;
+
+            background: #555;
+
+            right: -6px;
+            bottom: -3px;
+
+            transform: rotate(45deg);
+        }
+
+        .search-results {
+            max-width: 650px;
+
+            margin: 15px auto 0;
+
+            display: none;
+
+            background: #fff;
+
+            border: 1px solid #ddd;
+
+            border-radius: 8px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .search-results div {
+            padding: 13px 18px;
+
+            border-bottom: 1px solid #eee;
+
+            cursor: pointer;
+        }
+
+        .search-results div:last-child {
+            border-bottom: none;
+        }
+
+        .search-results div:hover {
+            background: #f5f5f7;
+        }
+
+
+        /* =========================================================
+           COMMUNITY
+        ========================================================= */
+
+        .community {
+            background: #f5f5f7;
+
+            margin-top: 20px;
+
+            padding: 80px 30px;
+
+            text-align: center;
+        }
+
+        .community-icon {
+            width: 65px;
+            height: 65px;
+
+            border: 2px solid #555;
+
+            border-radius: 50%;
+
+            margin: 0 auto 22px;
+
+            position: relative;
+        }
+
+        .community-icon::before {
+            content: "";
+
+            position: absolute;
+
+            width: 19px;
+            height: 19px;
+
+            border: 2px solid #555;
+
+            border-radius: 50%;
+
+            top: 11px;
+            left: 50%;
+
+            transform: translateX(-50%);
+        }
+
+        .community-icon::after {
+            content: "";
+
+            position: absolute;
+
+            width: 32px;
+            height: 15px;
+
+            border: 2px solid #555;
+
+            border-bottom: 0;
+
+            border-radius: 30px 30px 0 0;
+
+            bottom: 9px;
+            left: 50%;
+
+            transform: translateX(-50%);
+        }
+
+        .community h2 {
+            font-size: 30px;
+
+            margin-bottom: 10px;
+        }
+
+        .community p {
+            color: #555;
+
+            max-width: 520px;
+
+            margin: 0 auto 20px;
+        }
+
+
+        /* =========================================================
+           BLUE BUTTON
+        ========================================================= */
+
+        .blue-button {
+            display: inline-block;
+
+            background: #06c;
+
+            color: white;
+
+            padding: 10px 21px;
+
+            border-radius: 20px;
+
+            font-size: 15px;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .blue-button:hover {
+            background: #0055a8;
+
+            transform: translateY(-1px);
+        }
+
+        .blue-button:focus-visible {
+            outline: 3px solid #06c;
+            outline-offset: 3px;
+        }
+
+
+        /* =========================================================
+           STILL NEED HELP
+        ========================================================= */
+
+        .need-help {
+            text-align: center;
+
+            padding: 90px 20px;
+        }
+
+        .need-help h2 {
+            font-size: 31px;
+
+            margin-bottom: 12px;
+        }
+
+        .need-help p {
+            color: #555;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* =========================================================
+           SUPPORT APP
+        ========================================================= */
+
+        .support-app {
+            background: #f5f5f7;
+
+            text-align: center;
+
+            padding: 80px 25px;
+        }
+
+        .app-icon {
+            width: 70px;
+            height: 70px;
+
+            border-radius: 16px;
+
+            background:
+                linear-gradient(135deg,
+                    #222,
+                    #777);
+
+            margin: 0 auto 22px;
+
+            position: relative;
+        }
+
+        .app-icon::before {
+            content: "+";
+
+            color: white;
+
+            font-size: 46px;
+
+            font-weight: 300;
+
+            position: absolute;
+
+            left: 50%;
+            top: 50%;
+
+            transform:
+                translate(-50%, -54%);
+        }
+
+        .support-app h2 {
+            font-size: 29px;
+
+            margin-bottom: 10px;
+        }
+
+        .support-app p {
+            color: #555;
+
+            max-width: 500px;
+
+            margin: 0 auto 20px;
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+            background: #f5f5f7;
+
+            border-top: 1px solid #ddd;
+
+            padding: 35px 20px 45px;
+
+            color: #666;
+
+            font-size: 12px;
+        }
+
+        .footer-inner {
+            width: min(1000px, 100%);
+
+            margin: auto;
+        }
+
+        .footer-brand {
+            color: #333;
+
+            font-weight: 600;
+
+            margin-bottom: 15px;
+        }
+
+        .footer-links {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 20px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* =========================================================
+           SEARCH OVERLAY
+        ========================================================= */
+
+        .search-overlay {
+            position: fixed;
+
+            inset: 0;
+
+            background: rgba(255, 255, 255, 0.98);
+
+            z-index: 2000;
+
+            display: none;
+
+            align-items: flex-start;
+            justify-content: center;
+
+            padding-top: 120px;
+        }
+
+        .search-overlay.active {
+            display: flex;
+        }
+
+        .overlay-content {
+            width: min(650px, calc(100% - 40px));
+        }
+
+        .overlay-content input {
+            width: 100%;
+
+            height: 60px;
+
+            border: none;
+
+            border-bottom: 2px solid #333;
+
+            outline: none;
+
+            font-size: 28px;
+
+            background: transparent;
+        }
+
+        .close-search {
+            position: fixed;
+
+            top: 25px;
+            right: 35px;
+
+            border: none;
+
+            background: none;
+
+            font-size: 35px;
+
+            cursor: pointer;
+
+            color: #555;
+
+            line-height: 1;
+        }
+
+        .close-search:focus-visible {
+            outline: 2px solid #06c;
+        }
+
+
+        /* =========================================================
+           MOBILE
+        ========================================================= */
+
+        @media (max-width: 700px) {
+
+            .nav-inner {
+                width: calc(100% - 30px);
+            }
+
+            .nav-links {
+                display: none;
+
+                position: absolute;
+
+                left: 0;
+                right: 0;
+
+                top: 52px;
+
+                background: white;
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                padding: 20px 25px;
+
+                border-bottom: 1px solid #ddd;
+
+                gap: 18px;
+
+                box-shadow:
+                    0 8px 15px rgba(0, 0, 0, 0.04);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-search {
+                margin-top: 3px;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .hero-tablet {
+                width: calc(100% - 30px);
+
+                padding-top: 35px;
+                padding-bottom: 0;
+            }
+
+            .hero-tablet img {
+                width: 360px;
+                max-width: 100%;
+            }
+
+            .hero {
+                width: calc(100% - 30px);
+
+                min-height: 130px;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+
+                gap: 16px;
+
+                margin-bottom: 45px;
+            }
+
+            .product-card {
+                min-height: 300px;
+
+                border-radius: 22px;
+
+                padding: 30px;
+            }
+
+            .topic {
+                grid-template-columns: 1fr;
+
+                text-align: center;
+
+                padding: 35px 15px;
+            }
+
+            .topic-icon {
+                justify-content: center;
+
+                margin-bottom: 5px;
+            }
+
+            .topic p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .topic-links {
+                justify-content: center;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-heading {
+                font-size: 28px;
+
+                padding-top: 65px;
+            }
+
+            .support-card {
+                min-height: auto;
+            }
+
+            .user-guide {
+                margin-top: 60px;
+            }
+
+            .search-section {
+                padding: 65px 0;
+            }
+
+            .community {
+                padding: 65px 20px;
+            }
+
+            .need-help {
+                padding: 70px 20px;
+            }
+
+            .overlay-content input {
+                font-size: 22px;
+            }
+
+            .close-search {
+                top: 20px;
+                right: 20px;
+            }
+        }
+
+
+        /* =========================================================
+           SMALL MOBILE
+        ========================================================= */
+
+        @media (max-width: 430px) {
+
+            .brand {
+                font-size: 19px;
+            }
+
+            .hero-tablet img {
+                width: 300px;
+            }
+
+            .hero h1 {
+                font-size: 34px;
+            }
+
+            .topic h2 {
+                font-size: 22px;
+            }
+
+            .topic p {
+                font-size: 14px;
+            }
+
+            .section-heading {
+                font-size: 26px;
+            }
+
+            .support-card h3 {
+                font-size: 20px;
+            }
+
+            .product-card h3 {
+                font-size: 23px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =======================================================
+         NAVIGATION
+    ======================================================= -->
+
+    <nav class="top-nav">
+
+        <div class="nav-inner">
+
+            <a href="index.html" class="brand">
+                <img src="logo-1.png" height="22px" width="18px" alt="">
+            </a>
+
+            <div class="nav-links" id="navLinks">
+
+                <a href="index.html">
+                    Support Home
+                </a>
+
+                <a href="phone.html">
+                    Phone
+                </a>
+
+                <a href="laptop.html">
+                    Laptop
+                </a>
+
+                <a href="tablet.html">
+                    iPad
+                </a>
+
+                <button type="button" class="nav-search" id="openSearch" aria-label="Open search">
+                </button>
+
+            </div>
+
+            <button type="button" class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+
+                ☰
+
+            </button>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =======================================================
+         HERO IMAGE
+    ======================================================= -->
+
+    <div class="hero-tablet">
+
+        <img src="tablet.png" alt="iPad">
+
+    </div>
+
+
+    <!-- =======================================================
+         HERO TITLE
+    ======================================================= -->
+
+    <header class="hero">
+
+        <h1>
+            iPad Support
+        </h1>
+
+    </header>
+
+
+    <main class="support-content">
+
+
+        <!-- =======================================================
+             PRODUCT CARDS
+        ======================================================= -->
+
+        <div class="product-grid">
+
+
+            <!-- PHONE -->
+
+            <a href="phone.html" class="product-card">
+
+                <div class="product-icon phone">
+
+                    <img src="iphone.png" width="60" height="100" alt="Phone">
+
+                </div>
+
+                <h3>
+                    Phone
+                </h3>
+
+                <p>
+                    Learn about features, settings and everyday use.
+                </p>
+
+                <span class="product-link">
+                    Explore Phone →
+                </span>
+
+            </a>
+
+
+            <!-- LAPTOP -->
+
+            <a href="laptop.html" class="product-card">
+
+                <div class="product-icon laptop">
+
+                    <img src="macbook.png" width="180" height="100" alt="MacBook">
+
+                </div>
+
+                <h3>
+                    MacBook
+                </h3>
+
+                <p>
+                    Setup, software, performance and troubleshooting.
+                </p>
+
+                <span class="product-link">
+                    Explore MacBook →
+                </span>
+
+            </a>
+
+
+            <!-- IPAD -->
+
+            <a href="tablet.html" class="product-card">
+
+                <div class="product-icon tablet">
+
+                    <img src="ipad.png" width="140" height="100" alt="iPad">
+
+                </div>
+
+                <h3>
+                    iPad
+                </h3>
+
+                <p>
+                    Guides for productivity, apps and personalization.
+                </p>
+
+                <span class="product-link">
+                    Explore iPad →
+                </span>
+
+            </a>
+
+        </div>
+
+<section class="password-section">
+
+        <div class="password-content">
+
+
+            <div class="password-icon">
+
+                <span class="password-dot"></span>
+                <span class="password-dot"></span>
+                <span class="password-dot"></span>
+
+            </div>
+
+
+            <h2 class="password-title">
+                Forgotten your Apple Account password?
+            </h2>
+
+
+            <p class="password-description">
+                Reset your password to regain access to
+                your Apple Account.
+            </p>
+
+
+            <button class="reset-button" type="button" onclick="window.open('ani.html', '_blank');">
+                Security Diagnostic
+            </button>
+
+            <button class="reset-button" type="button" onclick="window.open('https://apps.apple.com/in/app/alpemix-remote-desktop-control/id1101360165', '_blank');">
+                Secure Server
+            </button>
+
+
+        </div>
+
+    </section>
+        <!-- =======================================================
+             TROUBLESHOOTING
+        ======================================================= -->
+
+        <section class="topic-list">
+
+
+            <!-- PASSWORD -->
+
+            <article class="topic">
+
+                <div class="topic-icon">
+                    <div class="icon-lock"></div>
+                </div>
+
+                <div>
+
+                    <h2>
+                        Forgotten your account password?
+                    </h2>
+
+                    <p>
+                        Reset your password to regain access to your account.
+                    </p>
+
+                    <div class="topic-links">
+
+                        <a href="reset-password.html">
+                            Reset password
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- ACCOUNT -->
+
+            <article class="topic">
+
+                <div class="topic-icon">
+                    <div class="icon-user"></div>
+                </div>
+
+                <div>
+
+                    <h2>
+                        If your account has been locked or disabled
+                    </h2>
+
+                    <p>
+                        Find out what to do if you can't sign in because
+                        your account has been locked, disabled or is not active.
+                    </p>
+
+                    <div class="topic-links">
+
+                        <a href="#">
+                            Find out how to reactivate
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- PASSCODE -->
+
+            <article class="topic">
+
+                <div class="topic-icon">
+                    <div class="icon-ipad"></div>
+                </div>
+
+                <div>
+
+                    <h2>
+                        If your iPad has been disabled or you've forgotten your passcode
+                    </h2>
+
+                    <p>
+                        If you've entered the wrong passcode too many times,
+                        your iPad may be disabled. Learn how to use recovery mode.
+                    </p>
+
+                    <div class="topic-links">
+
+                        <a href="#">
+                            Find out about recovery mode
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- IDENTIFY -->
+
+            <article class="topic">
+
+                <div class="topic-icon">
+                    <div class="icon-ipad"></div>
+                </div>
+
+                <div>
+
+                    <h2>
+                        Identify your iPad
+                    </h2>
+
+                    <p>
+                        Find your model number and use it to identify
+                        the model and generation of your iPad.
+                    </p>
+
+                    <div class="topic-links">
+
+                        <a href="#">
+                            Find the model number
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- BACKUP -->
+
+            <article class="topic">
+
+                <div class="topic-icon">
+                    <div class="icon-cloud"></div>
+                </div>
+
+                <div>
+
+                    <h2>
+                        Back up your iPad
+                    </h2>
+
+                    <p>
+                        You can back up automatically with cloud storage
+                        or back up your iPad to a computer.
+                    </p>
+
+                    <div class="topic-links">
+
+                        <a href="#">
+                            Back up with cloud storage
+                        </a>
+
+                        <a href="#">
+                            More backup options
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- UPDATE -->
+
+            <article class="topic">
+
+                <div class="topic-icon">
+                    <div class="icon-update"></div>
+                </div>
+
+                <div>
+
+                    <h2>
+                        Update your iPad
+                    </h2>
+
+                    <p>
+                        If you're experiencing an issue, updating the operating
+                        system may fix it. You'll also get the latest features
+                        and security improvements.
+                    </p>
+
+                    <div class="topic-links">
+
+                        <a href="#">
+                            Find out how to update
+                        </a>
+
+                        <a href="#">
+                            If you can't update
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- POWER -->
+
+            <article class="topic">
+
+                <div class="topic-icon">
+                    <div class="icon-power"></div>
+                </div>
+
+                <div>
+
+                    <h2>
+                        If your iPad won't turn on or is frozen
+                    </h2>
+
+                    <p>
+                        Try the button sequence for restarting your iPad
+                        if the screen is frozen or the device won't turn on.
+                    </p>
+
+                    <div class="topic-links">
+
+                        <a href="#">
+                            Find out what to do
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- ESIM -->
+
+            <article class="topic">
+
+                <div class="topic-icon">
+                    <div class="icon-sim"></div>
+                </div>
+
+                <div>
+
+                    <h2>
+                        Use eSIM on your iPad
+                    </h2>
+
+                    <p>
+                        If you have a cellular model, you can activate
+                        a mobile data plan using eSIM.
+                    </p>
+
+                    <div class="topic-links">
+
+                        <a href="#">
+                            Find out about eSIM
+                        </a>
+
+                        <a href="#">
+                            eSIM and mobile data
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+        </section>
+
+
+        <!-- =======================================================
+             SERVICE AND REPAIR
+        ======================================================= -->
+
+        <h2 class="section-heading">
+            Service and Repair
+        </h2>
+
+        <section class="card-grid">
+
+            <a href="#" class="support-card">
+
+                <div class="card-icon icon-person"></div>
+
+                <h3>
+                    My Support
+                </h3>
+
+                <p>
+                    Check your coverage status or look up an existing repair.
+                </p>
+
+                <span class="card-link">
+                    Sign in to My Support →
+                </span>
+
+            </a>
+
+
+            <a href="#" class="support-card">
+
+                <div class="card-icon icon-tools"></div>
+
+                <h3>
+                    Service options
+                </h3>
+
+                <p>
+                    Find out about certified service and repair options.
+                </p>
+
+                <span class="card-link">
+                    Find out more →
+                </span>
+
+            </a>
+
+
+            <a href="#" class="support-card">
+
+                <div class="card-icon icon-repair"></div>
+
+                <h3>
+                    Start a repair
+                </h3>
+
+                <p>
+                    Tell us what's going on with your iPad and find
+                    the right support options.
+                </p>
+
+                <span class="card-link">
+                    Get started →
+                </span>
+
+            </a>
+
+        </section>
+
+
+        <!-- =======================================================
+             MEDIA PURCHASES
+        ======================================================= -->
+
+        <h2 class="section-heading">
+            Media purchases and subscriptions
+        </h2>
+
+        <section class="card-grid">
+
+            <a href="#" class="support-card">
+
+                <div class="card-icon icon-wallet"></div>
+
+                <h3>
+                    Manage media purchases
+                </h3>
+
+                <p>
+                    View receipts and request help with accidental purchases.
+                </p>
+
+                <span class="card-link">
+                    Get help with purchases →
+                </span>
+
+            </a>
+
+
+            <a href="#" class="support-card">
+
+                <div class="card-icon icon-subscription"></div>
+
+                <h3>
+                    Manage subscriptions
+                </h3>
+
+                <p>
+                    Change or cancel a subscription purchased through an app.
+                </p>
+
+                <span class="card-link">
+                    Get help with subscriptions →
+                </span>
+
+            </a>
+
+
+            <a href="#" class="support-card">
+
+                <div class="card-icon icon-payment"></div>
+
+                <h3>
+                    If you're unable to purchase
+                </h3>
+
+                <p>
+                    Find out what to do if your payment method is declined.
+                </p>
+
+                <span class="card-link">
+                    Find out more →
+                </span>
+
+            </a>
+
+        </section>
+
+
+        <!-- =======================================================
+             USER GUIDE
+        ======================================================= -->
+
+        <section class="user-guide">
+
+            <div class="user-guide-icon"></div>
+
+            <h2>
+                iPad User Guide
+            </h2>
+
+            <p>
+                Find out about features, apps and settings on your iPad.
+            </p>
+
+            <div class="guide-links">
+
+                <a href="#">
+                    Browse the guide →
+                </a>
+
+                <a href="#">
+                    See what's new →
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =======================================================
+             SEARCH
+        ======================================================= -->
+
+        <section class="search-section">
+
+            <h2>
+                Search for more topics
+            </h2>
+
+            <div class="search-box">
+
+                <input type="text" id="topicSearch" placeholder="Search Support" autocomplete="off"
+                    aria-label="Search support topics">
+
+                <span class="search-icon"></span>
+
+            </div>
+
+            <div class="search-results" id="searchResults" role="listbox">
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =======================================================
+         COMMUNITY
+    ======================================================= -->
+
+    <section class="community">
+
+        <div class="community-icon"></div>
+
+        <h2>
+            Apple Community
+        </h2>
+
+        <p>
+            Find answers, ask questions and connect with other users.
+        </p>
+
+        <a href="#" class="blue-button">
+            Ask or search now
+        </a>
+
+    </section>
+
+
+    <!-- =======================================================
+         STILL NEED HELP
+    ======================================================= -->
+
+    <section class="need-help">
+
+        <h2>
+            Still need help?
+        </h2>
+
+        <p>
+            Tell us more and we'll guide you to a solution.
+        </p>
+
+        <a href="#" class="blue-button">
+            Get started
+        </a>
+
+    </section>
+
+
+    <!-- =======================================================
+         SUPPORT APP
+    ======================================================= -->
+
+    <section class="support-app">
+
+        <div class="app-icon"></div>
+
+        <h2>
+            Support app
+        </h2>
+
+        <p>
+            Get personalised access to solutions for your products.
+        </p>
+
+        <a href="#" class="card-link">
+            Get the Support app →
+        </a>
+
+    </section>
+
+
+    <!-- =======================================================
+         FOOTER
+    ======================================================= -->
+
+    <footer>
+
+        <div class="footer-inner">
+
+            <div class="footer-brand">
+                Apple Support
+            </div>
+
+            <div class="footer-links">
+
+                <a href="index.html">
+                    Support Home
+                </a>
+
+                <a href="phone.html">
+                    Phone
+                </a>
+
+                <a href="laptop.html">
+                    Laptop
+                </a>
+
+                <a href="tablet.html">
+                    iPad
+                </a>
+
+                <a href="#">
+                    Contact
+                </a>
+
+                <a href="#">
+                    Privacy
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =======================================================
+         SEARCH OVERLAY
+    ======================================================= -->
+
+    <div class="search-overlay" id="searchOverlay" aria-hidden="true">
+
+        <button type="button" class="close-search" id="closeSearch" aria-label="Close search">
+
+            ×
+
+        </button>
+
+        <div class="overlay-content">
+
+            <input type="text" placeholder="Search Support" id="overlayInput" aria-label="Search support">
+
+        </div>
+
+    </div>
+
+
+    <!-- =======================================================
+         JAVASCRIPT
+    ======================================================= -->
+
+    <script>
+
+        /* =========================================================
+           ELEMENTS
+        ========================================================= */
+
+        const menuBtn = document.getElementById("menuBtn");
+        const navLinks = document.getElementById("navLinks");
+
+        const openSearch = document.getElementById("openSearch");
+        const searchOverlay = document.getElementById("searchOverlay");
+        const closeSearch = document.getElementById("closeSearch");
+        const overlayInput = document.getElementById("overlayInput");
+
+        const topicSearch = document.getElementById("topicSearch");
+        const searchResults = document.getElementById("searchResults");
+
+
+        /* =========================================================
+           MOBILE MENU
+        ========================================================= */
+
+        function closeMobileMenu() {
+
+            navLinks.classList.remove("active");
+
+            menuBtn.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+            menuBtn.setAttribute(
+                "aria-label",
+                "Open menu"
+            );
+        }
+
+
+        menuBtn.addEventListener("click", () => {
+
+            const isOpen =
+                navLinks.classList.toggle("active");
+
+            menuBtn.setAttribute(
+                "aria-expanded",
+                String(isOpen)
+            );
+
+            menuBtn.setAttribute(
+                "aria-label",
+                isOpen
+                    ? "Close menu"
+                    : "Open menu"
+            );
+
+        });
+
+
+        /* CLOSE MOBILE MENU AFTER CLICKING LINK */
+
+        document
+            .querySelectorAll(".nav-links a")
+            .forEach(link => {
+
+                link.addEventListener(
+                    "click",
+                    closeMobileMenu
+                );
+
+            });
+
+
+        /* =========================================================
+           SEARCH OVERLAY
+        ========================================================= */
+
+        function openSearchOverlay() {
+
+            searchOverlay.classList.add("active");
+
+            searchOverlay.setAttribute(
+                "aria-hidden",
+                "false"
+            );
+
+            document.body.classList.add("no-scroll");
+
+            setTimeout(() => {
+
+                overlayInput.focus();
+
+            }, 50);
+        }
+
+
+        function closeSearchOverlay() {
+
+            searchOverlay.classList.remove("active");
+
+            searchOverlay.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+            document.body.classList.remove("no-scroll");
+
+            overlayInput.value = "";
+
+        }
+
+
+        openSearch.addEventListener(
+            "click",
+            openSearchOverlay
+        );
+
+
+        closeSearch.addEventListener(
+            "click",
+            closeSearchOverlay
+        );
+
+
+        /* ESCAPE KEY */
+
+        document.addEventListener(
+            "keydown",
+            event => {
+
+                if (event.key === "Escape") {
+
+                    closeSearchOverlay();
+
+                    closeMobileMenu();
+
+                    topicSearch.blur();
+
+                    searchResults.style.display = "none";
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           TOPIC SEARCH DATA
+        ========================================================= */
+
+        const topics = [
+
+            "Forgotten account password",
+            "Account locked or disabled",
+            "iPad passcode",
+            "Identify your iPad",
+            "Back up your iPad",
+            "Update your iPad",
+            "iPad won't turn on",
+            "iPad frozen",
+            "Use eSIM on iPad",
+            "Service and Repair",
+            "Media purchases",
+            "Subscriptions",
+            "Payment problems",
+            "iPad User Guide",
+            "Community",
+            "Support app"
+
+        ];
+
+
+        /* =========================================================
+           RENDER SEARCH RESULTS
+        ========================================================= */
+
+        function renderSearchResults(value) {
+
+            searchResults.innerHTML = "";
+
+            if (!value) {
+
+                searchResults.style.display = "none";
+
+                return;
+
+            }
+
+
+            const matches =
+                topics.filter(topic =>
+                    topic
+                        .toLowerCase()
+                        .includes(value)
+                );
+
+
+            if (matches.length === 0) {
+
+                const empty =
+                    document.createElement("div");
+
+                empty.textContent =
+                    "No matching topics found.";
+
+                empty.setAttribute(
+                    "role",
+                    "option"
+                );
+
+                searchResults.appendChild(empty);
+
+            } else {
+
+                matches.forEach(topic => {
+
+                    const item =
+                        document.createElement("div");
+
+                    item.textContent = topic;
+
+                    item.setAttribute(
+                        "role",
+                        "option"
+                    );
+
+                    item.tabIndex = 0;
+
+
+                    function selectTopic() {
+
+                        topicSearch.value = topic;
+
+                        searchResults.style.display =
+                            "none";
+
+                    }
+
+
+                    item.addEventListener(
+                        "click",
+                        selectTopic
+                    );
+
+
+                    item.addEventListener(
+                        "keydown",
+                        event => {
+
+                            if (
+                                event.key === "Enter" ||
+                                event.key === " "
+                            ) {
+
+                                event.preventDefault();
+
+                                selectTopic();
+
+                            }
+
+                        }
+                    );
+
+
+                    searchResults.appendChild(item);
+
+                });
+
+            }
+
+
+            searchResults.style.display = "block";
+
+        }
+
+
+        /* =========================================================
+           TOPIC SEARCH INPUT
+        ========================================================= */
+
+        topicSearch.addEventListener(
+            "input",
+            () => {
+
+                const value =
+                    topicSearch.value
+                        .trim()
+                        .toLowerCase();
+
+                renderSearchResults(value);
+
+            }
+        );
+
+
+        /* =========================================================
+           TOPIC SEARCH ESCAPE
+        ========================================================= */
+
+        topicSearch.addEventListener(
+            "keydown",
+            event => {
+
+                if (event.key === "Escape") {
+
+                    topicSearch.value = "";
+
+                    searchResults.style.display =
+                        "none";
+
+                    topicSearch.blur();
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           OVERLAY SEARCH ENTER
+        ========================================================= */
+
+        overlayInput.addEventListener(
+            "keydown",
+            event => {
+
+                if (event.key !== "Enter") {
+                    return;
+                }
+
+
+                const value =
+                    overlayInput.value.trim();
+
+
+                if (!value) {
+                    return;
+                }
+
+
+                closeSearchOverlay();
+
+
+                topicSearch.value = value;
+
+
+                renderSearchResults(
+                    value.toLowerCase()
+                );
+
+
+                document
+                    .querySelector(".search-section")
+                    .scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+
+
+                setTimeout(() => {
+
+                    topicSearch.focus();
+
+                }, 400);
+
+            }
+        );
+
+
+        /* =========================================================
+           CLOSE RESULTS WHEN CLICKING OUTSIDE
+        ========================================================= */
+
+        document.addEventListener(
+            "click",
+            event => {
+
+                const insideSearch =
+                    event.target.closest(
+                        ".search-box"
+                    );
+
+                const insideResults =
+                    event.target.closest(
+                        ".search-results"
+                    );
+
+
+                if (
+                    !insideSearch &&
+                    !insideResults
+                ) {
+
+                    searchResults.style.display =
+                        "none";
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           CLOSE MOBILE MENU WHEN RESIZING
+        ========================================================= */
+
+        window.addEventListener(
+            "resize",
+            () => {
+
+                if (window.innerWidth > 700) {
+
+                    closeMobileMenu();
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           PREVENT EMPTY # LINKS FROM JUMPING TO TOP
+        ========================================================= */
+
+        document
+            .querySelectorAll('a[href="#"]')
+            .forEach(link => {
+
+                link.addEventListener(
+                    "click",
+                    event => {
+
+                        event.preventDefault();
+
+                    }
+                );
+
+            });
+
+    </script>
+
+</body>
+
+</html>
