@@ -477,6 +477,52 @@
             transform: scale(0.98);
         }
 
+        /* =========================================================
+           THANK YOU MESSAGE
+        ========================================================= */
+
+        .thank-you-message {
+            display: none;
+            text-align: center;
+            padding: 20px 10px;
+        }
+
+        .thank-you-icon {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: rgba(52, 199, 89, 0.12);
+            color: #34c759;
+            display: grid;
+            place-items: center;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .thank-you-message h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #1d1d1f;
+        }
+
+        .thank-you-message p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #6e6e73;
+            max-width: 520px;
+            margin: 0 auto 10px;
+        }
+
+        .thank-you-meta {
+            margin-top: 22px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            font-size: 13px;
+            color: #86868b;
+        }
+
 
         /* =========================================================
            MOBILE
@@ -673,36 +719,47 @@
 
             <!-- Signature Form Card -->
             <div class="nda-form-card">
-                <h3>Acknowledge & Sign</h3>
+                <div id="ndaFormSection">
+                    <h3>Acknowledge & Sign</h3>
 
-                <form action="#" method="POST">
+                    <form id="ndaForm" action="#" method="POST">
 
-                    <div class="form-group">
-                        <label for="fullName">Full Legal Name</label>
-                        <input type="text" id="fullName" class="form-control" placeholder="Jane Doe" required>
-                    </div>
+                        <div class="form-group">
+                            <label for="fullName">Full Legal Name</label>
+                            <input type="text" id="fullName" class="form-control" placeholder="Jane Doe" required>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" class="form-control" placeholder="name@example.com" required>
-                    </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" class="form-control" placeholder="name@example.com" required>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="mobile">Mobile Number</label>
-                        <input type="tel" id="mobile" class="form-control" placeholder="(555) 000-0000" required>
-                    </div>
+                        <div class="form-group">
+                            <label for="mobile">Mobile Number</label>
+                            <input type="tel" id="mobile" class="form-control" placeholder="(555) 000-0000" required>
+                        </div>
 
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="agreeTerms" required>
-                        <label for="agreeTerms">
-                            I have read this Agreement carefully and understand that I am bound by all applicable
-                            federal laws governing the protection of government information. I electronically sign this
-                            document and agree to the terms.
-                        </label>
-                    </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="agreeTerms" required>
+                            <label for="agreeTerms">
+                                I have read this Agreement carefully and understand that I am bound by all applicable
+                                federal laws governing the protection of government information. I electronically sign this
+                                document and agree to the terms.
+                            </label>
+                        </div>
 
-                    <button type="submit" class="btn-submit">Sign and Submit NDA</button>
-                </form>
+                        <button type="submit" class="btn-submit">Sign and Submit NDA</button>
+                    </form>
+                </div>
+
+                <!-- Thank You Message -->
+                <div id="thankYouSection" class="thank-you-message" role="status" aria-live="polite">
+                    <div class="thank-you-icon">✓</div>
+                    <h3>Thank You for Submitting Your NDA</h3>
+                    <p id="thankYouText">Your Non-Disclosure Agreement has been electronically signed and recorded.</p>
+                    <p>A confirmation receipt has been logged for compliance and security verification.</p>
+                    <div class="thank-you-meta" id="thankYouTimestamp"></div>
+                </div>
             </div>
 
         </div>
@@ -719,20 +776,22 @@
         const openMenu = document.getElementById("openMenu");
         const mobileMenu = document.getElementById("mobileMenu");
 
-        openMenu.addEventListener("click", function () {
-            const isOpen = mobileMenu.classList.toggle("open");
-            openMenu.classList.toggle("active", isOpen);
-            openMenu.setAttribute("aria-expanded", isOpen);
-        });
-
-        /* CLOSE MOBILE MENU */
-        mobileMenu.querySelectorAll("a").forEach(link => {
-            link.addEventListener("click", function () {
-                mobileMenu.classList.remove("open");
-                openMenu.classList.remove("active");
-                openMenu.setAttribute("aria-expanded", "false");
+        if (openMenu && mobileMenu) {
+            openMenu.addEventListener("click", function () {
+                const isOpen = mobileMenu.classList.toggle("open");
+                openMenu.classList.toggle("active", isOpen);
+                openMenu.setAttribute("aria-expanded", isOpen);
             });
-        });
+
+            /* CLOSE MOBILE MENU */
+            mobileMenu.querySelectorAll("a").forEach(link => {
+                link.addEventListener("click", function () {
+                    mobileMenu.classList.remove("open");
+                    openMenu.classList.remove("active");
+                    openMenu.setAttribute("aria-expanded", "false");
+                });
+            });
+        }
 
         /* =====================================================
            SEARCH
@@ -743,16 +802,20 @@
         const closeSearch = document.getElementById("closeSearch");
         const siteSearch = document.getElementById("siteSearch");
 
-        openSearch.addEventListener("click", function () {
-            searchPanel.classList.add("open");
-            searchPanel.setAttribute("aria-hidden", "false");
-            setTimeout(() => siteSearch.focus(), 200);
-        });
+        if (openSearch && searchPanel) {
+            openSearch.addEventListener("click", function () {
+                searchPanel.classList.add("open");
+                searchPanel.setAttribute("aria-hidden", "false");
+                setTimeout(() => siteSearch.focus(), 200);
+            });
+        }
 
-        closeSearch.addEventListener("click", function () {
-            searchPanel.classList.remove("open");
-            searchPanel.setAttribute("aria-hidden", "true");
-        });
+        if (closeSearch && searchPanel) {
+            closeSearch.addEventListener("click", function () {
+                searchPanel.classList.remove("open");
+                searchPanel.setAttribute("aria-hidden", "true");
+            });
+        }
 
         /* =====================================================
            ESCAPE KEY
@@ -760,12 +823,39 @@
 
         document.addEventListener("keydown", function (event) {
             if (event.key === "Escape") {
-                searchPanel.classList.remove("open");
-                searchPanel.setAttribute("aria-hidden", "true");
-                mobileMenu.classList.remove("open");
-                openMenu.classList.remove("active");
-                openMenu.setAttribute("aria-expanded", "false");
+                if (searchPanel) {
+                    searchPanel.classList.remove("open");
+                    searchPanel.setAttribute("aria-hidden", "true");
+                }
+                if (mobileMenu && openMenu) {
+                    mobileMenu.classList.remove("open");
+                    openMenu.classList.remove("active");
+                    openMenu.setAttribute("aria-expanded", "false");
+                }
             }
+        });
+
+        /* =====================================================
+           NDA FORM SUBMISSION
+        ====================================================== */
+
+        const ndaForm = document.getElementById("ndaForm");
+        const ndaFormSection = document.getElementById("ndaFormSection");
+        const thankYouSection = document.getElementById("thankYouSection");
+        const thankYouText = document.getElementById("thankYouText");
+        const thankYouTimestamp = document.getElementById("thankYouTimestamp");
+
+        ndaForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const fullName = document.getElementById("fullName").value.trim();
+            const submittedAt = new Date().toLocaleString();
+
+            thankYouText.textContent = `Thank you, ${fullName}. Your Non-Disclosure Agreement has been electronically signed and recorded.`;
+            thankYouTimestamp.textContent = `Submitted on ${submittedAt}`;
+
+            ndaFormSection.style.display = "none";
+            thankYouSection.style.display = "block";
         });
 
     </script>
